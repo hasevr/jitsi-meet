@@ -16,6 +16,8 @@ const minimize
     = process.argv.indexOf('-p') !== -1
         || process.argv.indexOf('--optimize-minimize') !== -1;
 
+const middleware = process.argv.indexOf("--middleware") !== -1;
+
 /**
  * Build a Performance configuration object for the given size.
  * See: https://webpack.js.org/configuration/performance/
@@ -41,7 +43,8 @@ const config = {
                 target: devServerProxyTarget,
                 headers: {
                     'Host': new URL(devServerProxyTarget).host
-                }
+                },
+                writeToDisk: true,
             }
         }
     },
@@ -145,10 +148,10 @@ const config = {
         minimize
     },
     output: {
-        filename: `[name]${minimize ? '.min' : ''}.js`,
-        path: `${__dirname}/build`,
+        filename: `[name]${(minimize || middleware) ? '.min' : ''}.js`,
+        path: `${__dirname}/${middleware ? "libs" : "build"}`,
         publicPath: '/libs/',
-        sourceMapFilename: `[name].${minimize ? 'min' : 'js'}.map`
+        sourceMapFilename: `[name].${(minimize || middleware) ? 'min' : 'js'}.map`
     },
     plugins: [
         analyzeBundle
