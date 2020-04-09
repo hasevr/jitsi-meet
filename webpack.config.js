@@ -16,7 +16,7 @@ const minimize
     = process.argv.indexOf('-p') !== -1
         || process.argv.indexOf('--optimize-minimize') !== -1;
 
-const middleware = process.argv.indexOf("--middleware") !== -1;
+const middleware = process.argv.indexOf('--middleware') !== -1;
 
 /**
  * Build a Performance configuration object for the given size.
@@ -44,7 +44,7 @@ const config = {
                 headers: {
                     'Host': new URL(devServerProxyTarget).host
                 },
-                writeToDisk: true,
+                writeToDisk: true
             }
         }
     },
@@ -148,10 +148,10 @@ const config = {
         minimize
     },
     output: {
-        filename: `[name]${(minimize || middleware) ? '.min' : ''}.js`,
-        path: `${__dirname}/${middleware ? "libs" : "build"}`,
+        filename: `[name]${minimize || middleware ? '.min' : ''}.js`,
+        path: `${__dirname}/${middleware ? 'libs' : 'build'}`,
         publicPath: '/libs/',
-        sourceMapFilename: `[name].${(minimize || middleware) ? 'min' : 'js'}.map`
+        sourceMapFilename: `[name].${minimize || middleware ? 'min' : 'js'}.map`
     },
     plugins: [
         analyzeBundle
