@@ -89,6 +89,9 @@ export default class RemoteVideo extends SmallVideo {
         this.popupMenuIsHovered = false;
         this._isRemoteControlSessionActive = false;
 
+        this.baseVolume = 1;
+        this.attenuation = 1;
+
         /**
          * The flag is set to <tt>true</tt> after the 'onplay' event has been
          * triggered on the current video element. It goes back to <tt>false</tt>
@@ -114,7 +117,7 @@ export default class RemoteVideo extends SmallVideo {
         // handled through reducers and middleware.
         this._requestRemoteControlPermissions
             = this._requestRemoteControlPermissions.bind(this);
-        this._setAudioVolume = this._setAudioVolume.bind(this);
+        this._setAudioBaseVolume = this._setAudioBaseVolume.bind(this);
         this._stopRemoteControl = this._stopRemoteControl.bind(this);
 
         this.container.onclick = this._onContainerClick;
@@ -184,11 +187,11 @@ export default class RemoteVideo extends SmallVideo {
             }
         }
 
-        const initialVolumeValue = this._audioStreamElement && this._audioStreamElement.volume;
+        const initialVolumeValue = this.baseVolume;// this._audioStreamElement && this._audioStreamElement.volume;
 
         // hide volume when in silent mode
         const onVolumeChange
-            = APP.store.getState()['features/base/config'].startSilent ? undefined : this._setAudioVolume;
+            = APP.store.getState()['features/base/config'].startSilent ? undefined : this._setAudioBaseVolume;
         const participantID = this.id;
         const currentLayout = getCurrentLayout(APP.store.getState());
         let remoteMenuPosition;
@@ -296,6 +299,25 @@ export default class RemoteVideo extends SmallVideo {
         // send message about stopping
         APP.remoteControl.controller.stop();
         this.updateRemoteVideoMenu();
+    }
+
+    /**
+     * Change the remote participant's base volume.
+     *
+     * @param {number} newVal - The value to set the slider to.
+     */
+    _setAudioBaseVolume(newVal) {
+        this.baseVolume = newVal;
+        this._setAudioVolume(this.baseVolume * this.attenuation);
+    }
+
+    /**
+     * Change the remote participant's volume attenuation
+     * @param {number} newVal
+     */
+    setAudioAttenuation(newVal) {
+        this.attenuation = newVal;
+        this._setAudioVolume(this.baseVolume * this.attenuation)
     }
 
     /**

@@ -12,6 +12,8 @@ import SharedVideoManager from './shared_video/SharedVideo';
 
 import VideoLayout from './videolayout/VideoLayout';
 
+import {audioUpdater} from './pose_observer/AudioUpdater'
+
 import { getLocalParticipant } from '../../react/features/base/participants';
 import { toggleChat } from '../../react/features/chat';
 import { setDocumentUrl } from '../../react/features/etherpad';
