@@ -6,6 +6,7 @@ import * as PoseTypes from '../../../../modules/pose/types';
 type Props = {
     terrain: PoseTypes.Terrain,
     participants: PoseTypes.Participants,
+    conference: any,
     onLocalParticipantMove(newPose: PoseTypes.Pose): void
 }
 
