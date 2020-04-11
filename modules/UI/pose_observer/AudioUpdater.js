@@ -1,23 +1,19 @@
 // @flow
 /* eslint-disable semi, require-jsdoc, no-unused-vars */
 
-/**
- * Update audio volume according to distance
- */
-
 import * as PoseType from '../../pose/types'
 import { BaseVolumeCalculator } from './VolumeCalculator'
 import VideoLayout from '../videolayout/VideoLayout'
 
 /**
- *
+ * Update audio volume according to distance
  */
 class AudioUpdater {
     constructor(calculator: BaseVolumeCalculator) {
         this._calculator = calculator
     }
 
-    updateAudio(localParticipant: PoseType.Participant, remoteParticipants: PoseType.Participants) {
+    update(localParticipant: PoseType.Participant, remoteParticipants: PoseType.Participants) {
         for (const [ key, remoteParticipant ] of Object.entries(remoteParticipants)) {
             const attenuation = this._calculator.getVolume(localParticipant.pose, remoteParticipant.pose)
 
@@ -34,4 +30,4 @@ class AudioUpdater {
 
 export const audioUpdater = new AudioUpdater(new BaseVolumeCalculator())
 
-window.audioUpdater = audioUpdater  // TEST
+window.audioUpdater = audioUpdater // TEST

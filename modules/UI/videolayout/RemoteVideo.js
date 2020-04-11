@@ -317,7 +317,7 @@ export default class RemoteVideo extends SmallVideo {
      */
     setAudioAttenuation(newVal) {
         this.attenuation = newVal;
-        this._setAudioVolume(this.baseVolume * this.attenuation)
+        this._setAudioVolume(this.baseVolume * this.attenuation);
     }
 
     /**

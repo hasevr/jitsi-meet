@@ -12,7 +12,8 @@ import SharedVideoManager from './shared_video/SharedVideo';
 
 import VideoLayout from './videolayout/VideoLayout';
 
-import {audioUpdater} from './pose_observer/AudioUpdater'
+import { audioUpdater } from './pose_observer/AudioUpdater'; // eslint-disable-line no-unused-vars
+import { viewUpdater } from './pose_observer/ViewUpdater'; // eslint-disable-line no-unused-vars
 
 import { getLocalParticipant } from '../../react/features/base/participants';
 import { toggleChat } from '../../react/features/chat';
