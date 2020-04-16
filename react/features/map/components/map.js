@@ -14,7 +14,7 @@ declare var APP: Object
 type Props = {
     terrain: PoseTypes.Terrain,
     remoteParticipants: PoseTypes.Participants,
-    localParticipants: PoseTypes.Participant,
+    localParticipant: PoseTypes.Participant,
     conference: any,
     onLocalParticipantMove(newPose: PoseTypes.Pose): void
 }
@@ -53,30 +53,29 @@ function Participant(props: ParticipantProps) {
     const triangleDegree = 30
     const triangleRadian = triangleDegree * Math.PI / 180
     const trianglePoints = [
-        [2 - Math.cos(triangleRadian), 2 - Math.sin(triangleRadian)],
-        [2, 2 - 1 / Math.sin(triangleRadian)],
-        [2 + Math.cos(triangleRadian), 2 - Math.sin(triangleRadian)]
+        [ 2 - Math.cos(triangleRadian), 2 - Math.sin(triangleRadian) ],
+        [ 2, 2 - (1 / Math.sin(triangleRadian)) ],
+        [ 2 + Math.cos(triangleRadian), 2 - Math.sin(triangleRadian) ]
     ]
+
+
     return (
-        <g transform = {`rotate(${props.participant.pose.rotation},${center[0]},${center[1]})`}>
-        <svg
-            x = { `${center[0] - 2 * PARTICIPANT_RADIUS}` }
-            y = { `${center[1] - 2 * PARTICIPANT_RADIUS}` }
-            viewBox = '0 0 4 4'
-            width = { `${4 * PARTICIPANT_RADIUS}` }
-            height = { `${4 * PARTICIPANT_RADIUS}` }
-        >
-            <circle
-                cx = '2'
-                cy = '2'
-                r = '1'
-                fill = {props.color}
-            />
-            <polygon
-                points={trianglePoints.map(point => `${point[0]},${point[1]}`).join(' ')}
-                fill = {props.color}
-            />
-        </svg>
+        <g transform = { `rotate(${props.participant.pose.rotation},${center[0]},${center[1]})` }>
+            <svg
+                height = { `${4 * PARTICIPANT_RADIUS}` }
+                viewBox = '0 0 4 4'
+                width = { `${4 * PARTICIPANT_RADIUS}` }
+                x = { `${center[0] - (2 * PARTICIPANT_RADIUS)}` }
+                y = { `${center[1] - (2 * PARTICIPANT_RADIUS)}` }>
+                <circle
+                    cx = '2'
+                    cy = '2'
+                    fill = { props.color }
+                    r = '1' />
+                <polygon
+                    fill = { props.color }
+                    points = { trianglePoints.map(point => `${point[0]},${point[1]}`).join(' ') } />
+            </svg>
         </g>
     )
 }
