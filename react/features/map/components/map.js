@@ -13,7 +13,8 @@ declare var APP: Object
 
 type Props = {
     terrain: PoseTypes.Terrain,
-    participants: PoseTypes.Participants,
+    remoteParticipants: PoseTypes.Participants,
+    localParticipants: PoseTypes.Participant,
     conference: any,
     onLocalParticipantMove(newPose: PoseTypes.Pose): void
 }
@@ -25,41 +26,76 @@ type Props = {
  */
 export function Map(props: Props) {
     return (
-        <div className = 'App'>
-            <svg
-                viewBox = { `0 0 ${props.terrain.width} ${props.terrain.height}` }
-                xmlns = 'http://www.w3.org/2000/svg'>
-                {Object.values(props.participants).map(participant => Participant({
-                    participant
-                }))}
-            </svg>
-        </div>
+        <svg
+            viewBox = { `0 0 ${props.terrain.width} ${props.terrain.height}` }
+            xmlns = 'http://www.w3.org/2000/svg'>
+            {Object.values(props.remoteParticipants).map(remoteParticipants => Participant({
+                participant: remoteParticipants,
+                color: 'blue'
+            }))}
+            {Participant({
+                participant: props.localParticipant,
+                color: 'red'
+            })}
+        </svg>
     )
 }
 
 type ParticipantProps = {
-    participant: PoseTypes.Participant
+    participant: PoseTypes.Participant,
+    color: 'blue' | 'red'
 }
 function Participant(props: ParticipantProps) {
+    const center = [
+        props.participant.pose.position[0],
+        props.participant.pose.position[1]
+    ]
+    const triangleDegree = 30
+    const triangleRadian = triangleDegree * Math.PI / 180
+    const trianglePoints = [
+        [2 - Math.cos(triangleRadian), 2 - Math.sin(triangleRadian)],
+        [2, 2 - 1 / Math.sin(triangleRadian)],
+        [2 + Math.cos(triangleRadian), 2 - Math.sin(triangleRadian)]
+    ]
     return (
+        <g transform = {`rotate(${props.participant.pose.rotation},${center[0]},${center[1]})`}>
         <svg
-            cx = { `${props.participant.pose.position[0]}` }
-            cy = { `${props.participant.pose.position[1]}` }>
+            x = { `${center[0] - 2 * PARTICIPANT_RADIUS}` }
+            y = { `${center[1] - 2 * PARTICIPANT_RADIUS}` }
+            viewBox = '0 0 4 4'
+            width = { `${4 * PARTICIPANT_RADIUS}` }
+            height = { `${4 * PARTICIPANT_RADIUS}` }
+        >
             <circle
-                cx = '0'
-                cy = '0'
-                r = { `${PARTICIPANT_RADIUS}` } />
-            <foreignObject
-                height = { `${PARTICIPANT_RADIUS * 2}` }
-                width = { `${PARTICIPANT_RADIUS * 2}` }
-                x = { `${-PARTICIPANT_RADIUS}` }
-                y = { `${-PARTICIPANT_RADIUS}` } >
-                <Provider store = { APP.store }>
-                    <Avatar
-                        className = 'userAvatar'
-                        participantId = { props.participant.id } />
-                </Provider>
-            </foreignObject>
+                cx = '2'
+                cy = '2'
+                r = '1'
+                fill = {props.color}
+            />
+            <polygon
+                points={trianglePoints.map(point => `${point[0]},${point[1]}`).join(' ')}
+                fill = {props.color}
+            />
         </svg>
+        </g>
+    )
+}
+
+type AvatarObjectProps = {
+    participant: PoseTypes.Participant
+}
+function AvatarObject(props: AvatarObjectProps) {
+    return (
+        <foreignObject
+            height = { `${PARTICIPANT_RADIUS * 2}` }
+            width = { `${PARTICIPANT_RADIUS * 2}` }
+            x = { `${-PARTICIPANT_RADIUS}` }
+            y = { `${-PARTICIPANT_RADIUS}` } >
+            <Provider store = { APP.store }>
+                <Avatar
+                    className = 'userAvatar'
+                    participantId = { props.participant.id } />
+            </Provider>
+        </foreignObject>
     )
 }
