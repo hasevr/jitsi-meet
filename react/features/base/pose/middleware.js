@@ -78,19 +78,21 @@ MiddlewareRegistry.register(store => next => action => {
         break;
     }
     case PARTICIPANT_JOINED: {
-        // TODO: Get participant pose
-        const { conference } = getCurrentConference(store.getState());
+        // FIXME: conference may not exist when local participant left room.
+        const conference = getCurrentConference(store.getState());
 
-        conference.sendCommand(
-            POSE_REQUEST_COMMAND,
-            { attributes: {} }
-        )
+        if (conference) {
+            conference.sendCommand(
+                POSE_REQUEST_COMMAND,
+                { attributes: {} }
+            )
+        }
 
         break;
     }
     case REQUEST_LOCAL_POSE: {
-        const { conference } = getCurrentConference(store.getState());
-        const { local } = getCurrentLocalPose(store.getState());
+        const conference = getCurrentConference(store.getState());
+        const local = getCurrentLocalPose(store.getState());
 
         conference.sendCommand(
             UPDATE_POSE_COMMAND,

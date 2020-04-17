@@ -5,7 +5,7 @@ import React from 'react';
 import { Map } from './map'
 import { ParticipantController } from './keyboard'
 import { connect } from '../../base/redux';
-import { localPoseUpdated } from '../../base/pose/actions';
+import { localPoseUpdated } from '../../base/pose';
 
 type Props = {
     terrain: PoseTypes.Terrain,
@@ -48,4 +48,4 @@ function _mapDispatchToProps(dispatch, ownProps) {
     };
 }
 
-export default connect(_mapStateToProps, _mapStateToProps)(InteractiveMap);
+export default connect(_mapStateToProps, _mapDispatchToProps)(InteractiveMap);
