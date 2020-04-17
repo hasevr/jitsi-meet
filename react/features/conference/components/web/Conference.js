@@ -207,36 +207,9 @@ class Conference extends AbstractConference<Props, *> {
                 <div id = 'map'>
                     <Map
                         conference = {{}}
-                        localParticipant = {{
-                            id: 'p3',
-                            pose: {
-                                position: [ 20, 20 ],
-                                rotation: 0
-                            }
-                        }}
                         onLocalParticipantMove = { () => { // eslint-disable-line react/jsx-no-bind
                             console.log('onLocalParticipantMove');
-                        } } // eslint-disable-line react/jsx-no-bind
-                        remoteParticipants = {{
-                            p1: {
-                                id: 'p1',
-                                pose: {
-                                    position: [ 10, 10 ],
-                                    rotation: 0
-                                }
-                            },
-                            p2: {
-                                id: 'p2',
-                                pose: {
-                                    position: [ 50, 50 ],
-                                    rotation: 50
-                                }
-                            }
-                        }}
-                        terrain = {{
-                            width: 100,
-                            height: 100
-                        }} />
+                        } } />
                 </div>
             </div>
         );
