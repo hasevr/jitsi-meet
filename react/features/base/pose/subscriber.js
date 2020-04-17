@@ -4,9 +4,8 @@
 import { StateListenerRegistry } from '../redux';
 import { getCurrentConference } from '../conference';
 import { FETCH_ALL_POSES_COMMAND, SET_LOCAL_POSE_COMMAND, UPDATE_POSE_COMMAND } from './middleware';
-
-declare var audioUpdater: Object;
-declare var viewUpdater: Object;
+import { audioUpdater } from '../../../../modules/UI/pose_observer/AudioUpdater';
+import { viewUpdater } from '../../../../modules/UI/pose_observer/ViewUpdater';
 
 
 StateListenerRegistry.register(

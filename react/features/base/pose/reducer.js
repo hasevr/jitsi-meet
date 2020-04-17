@@ -32,7 +32,11 @@ const DEFAULT_STATE = {
      * @public
      * @type {Participant | undefined}
      */
-    localParticipant: undefined
+    localParticipant: undefined,
+    terrain: {
+        width: 100,
+        height: 100
+    }
 };
 
 const STORE_NAME = 'features/base/pose';

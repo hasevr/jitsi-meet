@@ -4,6 +4,7 @@
 import React from 'react';
 import { Map } from './map'
 import { ParticipantController } from './keyboard'
+import { connect } from '../../base/redux';
 
 type Props = {
     terrain: PoseTypes.Terrain,
@@ -13,7 +14,7 @@ type Props = {
     onLocalParticipantMove(newPose: PoseTypes.Pose): void
 }
 
-export default function InteractiveMap(props: Props) {
+function InteractiveMap(props: Props) {
     const {
         onLocalParticipantMove,
         ...mapProps
@@ -28,3 +29,15 @@ export default function InteractiveMap(props: Props) {
         </ParticipantController>
     )
 }
+
+function _mapStateToProps(state) {
+    const { localParticipant, remoteParticipants, terrain } = state['features/base/pose'];
+
+    return {
+        terrain,
+        localParticipant,
+        remoteParticipants
+    };
+}
+
+export default connect(_mapStateToProps)(InteractiveMap);
