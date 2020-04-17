@@ -14,7 +14,7 @@ import { Filmstrip } from '../../../filmstrip';
 import { CalleeInfoContainer } from '../../../invite';
 import { LargeVideo } from '../../../large-video';
 import { LAYOUTS, getCurrentLayout } from '../../../video-layout';
-import { Map } from '../../../map/components/map';
+import Map from '../../../map/components';
 
 import {
     Toolbox,

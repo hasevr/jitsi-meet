@@ -15,8 +15,7 @@ type Props = {
     terrain: PoseTypes.Terrain,
     remoteParticipants: PoseTypes.Participants,
     localParticipant: PoseTypes.Participant,
-    conference: any,
-    onLocalParticipantMove(newPose: PoseTypes.Pose): void
+    conference: any
 }
 
 /**
@@ -60,7 +59,9 @@ function Participant(props: ParticipantProps) {
 
 
     return (
-        <g transform = { `rotate(${props.participant.pose.rotation},${center[0]},${center[1]})` }>
+        <g
+            key = { props.participant.id }
+            transform = { `rotate(${props.participant.pose.rotation},${center[0]},${center[1]})` }>
             <svg
                 height = { `${4 * PARTICIPANT_RADIUS}` }
                 viewBox = '0 0 4 4'
