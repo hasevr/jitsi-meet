@@ -58,4 +58,15 @@ export const UPDATE_PARTICIPANT_POSE = 'UPDATE_PARTICIPANT_POSE';
  */
 export const SET_PARTICIPANT_POSE = 'SET_PARTICIPANT_POSE';
 
+
+/**
+ * This action dispatched when all participant poses in current conference is initialized.
+ */
 export const POSE_INIT_FINISHED = 'POSE_INIT_FINISHED';
+
+
+export const LOCAL_POSE_UPDATED = 'LOCAL_POSE_UPDATED';
+
+export const REMOTE_POSE_UPDATED = 'REMOTE_POSE_UPDATED';
+
+export const REQUEST_LOCAL_POSE = 'REQUEST_LOCAL_POSE';

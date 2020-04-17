@@ -1,7 +1,13 @@
 // @flow
 /* eslint-disable semi, require-jsdoc, no-unused-vars, valid-jsdoc, react/no-multi-comp, new-cap */
 
-import { UPDATE_PARTICIPANT_POSE, SET_PARTICIPANT_POSE, GET_ALL_PARTICIPANT_POSES } from './actionTypes';
+import {
+    UPDATE_PARTICIPANT_POSE,
+    SET_PARTICIPANT_POSE,
+    GET_ALL_PARTICIPANT_POSES,
+    LOCAL_POSE_UPDATED,
+    REMOTE_POSE_UPDATED
+} from './actionTypes';
 import { ReducerRegistry } from '../redux';
 import type { Participant, Participants } from './actionTypes';
 
@@ -20,7 +26,7 @@ const DEFAULT_STATE = {
      * @public
      * @type {Participants}
      */
-    participants: {},
+    remoteParticipants: {},
 
     /**
      * @public
@@ -37,28 +43,43 @@ ReducerRegistry.register(STORE_NAME, (state: Object = DEFAULT_STATE, action) => 
     const newState = Object.assign({}, state);
 
     switch (action.type) {
-    case GET_ALL_PARTICIPANT_POSES:
-        return {
-            ...state,
-            initState: 'Fetching'
-        };
-    case UPDATE_PARTICIPANT_POSE:
-        newState.participants[targetParticipant.id] = targetParticipant;
 
-        return {
-            ...state,
-            participants: newState.participants
-        };
-    case SET_PARTICIPANT_POSE:
-        newState.participants[targetParticipant.id] = targetParticipant;
+    // case GET_ALL_PARTICIPANT_POSES:
+    //     return {
+    //         ...state,
+    //         initState: 'Fetching'
+    //     };
+    // case UPDATE_PARTICIPANT_POSE:
+    //     newState.participants[targetParticipant.id] = targetParticipant;
+
+    //     return {
+    //         ...state,
+    //         participants: newState.participants
+    //     };
+    // case SET_PARTICIPANT_POSE:
+    //     newState.localParticipant = targetParticipant;
+
+    //     return {
+    //         ...state,
+    //         participants: newState.participants,
+    //         localParticipant: targetParticipant
+    //     };
+    case LOCAL_POSE_UPDATED:
         newState.localParticipant = targetParticipant;
 
         return {
             ...state,
-            participants: newState.participants,
-            localParticipant: targetParticipant
+            localParticipant: newState.localParticipant
         };
+    case REMOTE_POSE_UPDATED:
+        newState.participants[targetParticipant.id] = targetParticipant;
+
+        return {
+            ...state,
+            remoteParticipants: newState.participants
+        }
     }
+
 
     return state;
 });

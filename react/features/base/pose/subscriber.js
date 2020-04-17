@@ -3,40 +3,39 @@
 
 import { StateListenerRegistry } from '../redux';
 import { getCurrentConference } from '../conference';
-import { FETCH_ALL_POSES_COMMAND, SET_LOCAL_POSE_COMMAND } from './middleware';
+import { FETCH_ALL_POSES_COMMAND, SET_LOCAL_POSE_COMMAND, UPDATE_POSE_COMMAND } from './middleware';
 
-StateListenerRegistry.register(
-    state => state['features/base/pose'].initState,
-    _sendPosesCommand
-);
+declare var audioUpdater: Object;
+declare var viewUpdater: Object;
+
 
 StateListenerRegistry.register(
     state => state['features/base/pose'].localParticipant,
-    _sendPosesCommand
-);
+    _sendUpdatePoseCommand
+)
 
-function _sendPosesCommand(initPoseState, store) {
+StateListenerRegistry.register(
+    state => state['features/base/pose'].remoteParticipants,
+    _updateAudioAndView
+)
+
+function _sendUpdatePoseCommand(local, store) {
     const state = store.getState();
     const conference = getCurrentConference(state);
 
-    if (initPoseState === 'fetching') {
-        conference.sendCommand(FETCH_ALL_POSES_COMMAND,
-            { attributes: {} }
-        );
-    }
+    conference.sendCommand(
+        UPDATE_POSE_COMMAND,
+        { attributes: { participant: local } }
+    );
+
+    _updateAudioAndView(local, store);
 
     return;
 }
 
-function _sendLocalPoseCommand(local, store) {
-    const state = store.getState();
-    const conference = getCurrentConference(state);
+function _updateAudioAndView(change, store) {
+    const { localParticipant, remoteParticipants } = store.getState()['features/base/pose'];
 
-    if (local !== undefined) {
-        conference.sendCommand(SET_LOCAL_POSE_COMMAND,
-            { attributes: local }
-        );
-    }
-
-    return;
+    audioUpdater.update(localParticipant, remoteParticipants);
+    viewUpdater.update(localParticipant, remoteParticipants);
 }

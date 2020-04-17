@@ -13,4 +13,13 @@ import type { Pose, Participant } from './actionTypes';
 export function setParticipantPoseLib(participant: Participant, dispatch: Function) {
     // TODO
     const conference = getCurrentConference();
+
+    dispatch();
+}
+
+
+export function getCurrentLocalPose(store: any) {
+    const local = store.getState()['features/base/pose'].localParticipant;
+
+    return local;
 }

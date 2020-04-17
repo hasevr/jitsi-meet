@@ -5,20 +5,35 @@ import {
     setParticipantPose,
     updateParticipantPose,
     getAllParticipantPoses,
-    notifyPoseInitFinished
+    notifyPoseInitFinished,
+    remotePoseUpdated,
+    localPoseUpdated,
+    requestLocalPose
 } from './actions';
-import { SET_PARTICIPANT_POSE, UPDATE_PARTICIPANT_POSE } from './actionTypes';
+import {
+    SET_PARTICIPANT_POSE,
+    UPDATE_PARTICIPANT_POSE,
+    LOCAL_POSE_UPDATED,
+    POSE_INIT_FINISHED,
+    REQUEST_LOCAL_POSE
+} from './actionTypes';
 import type { Pose, Participant } from './actionTypes';
 import { MiddlewareRegistry } from '../redux';
 
-import { CONFERENCE_JOINED } from '../conference';
+import { CONFERENCE_JOINED, getCurrentConference } from '../conference';
+import { PARTICIPANT_JOINED } from '../participants';
+import { getCurrentLocalPose } from './functions';
 
 export const SET_LOCAL_POSE_COMMAND = 'set_local_pose';
 export const FETCH_ALL_POSES_COMMAND = 'fetch_all_poses';
 
+export const UPDATE_POSE_COMMAND = 'update_pose';
+export const POSE_REQUEST_COMMAND = 'pose_request';
+
 
 type JitsiConference = {
     addCommandListener: (string, Function) => void,
+    sendCommand: (string, Object) => void
 };
 type CommandValues = {
     value: any,
@@ -41,23 +56,46 @@ MiddlewareRegistry.register(store => next => action => {
 
         // Setup pose-related command.
         conference.addCommandListener(
-                SET_LOCAL_POSE_COMMAND,
-                ({ attributes }: { attributes: { participant: Participant } }) => {
-                    store.dispatch(updateParticipantPose(attributes.participant));
-                }
+            UPDATE_POSE_COMMAND,
+            ({ attributes }: { attributes: { participant: Participant } }) => {
+                store.dispatch(remotePoseUpdated(attributes.participant));
+            }
         );
         conference.addCommandListener(
-                FETCH_ALL_POSES_COMMAND,
-                ({ attributes }) => {
-                    store.dispatch(setParticipantPose(attributes.participant));
-                }
-        );
+            POSE_REQUEST_COMMAND,
+            () => {
+                store.dispatch(requestLocalPose());
+            }
+        )
+
 
         // Get all participant poses.
-        store.dispatch(getAllParticipantPoses());
+        // store.dispatch(getAllParticipantPoses());
 
         // Notify that pose feature is initialized.
-        store.dispatch(notifyPoseInitFinished());
+        // store.dispatch(notifyPoseInitFinished());
+
+        break;
+    }
+    case PARTICIPANT_JOINED: {
+        // TODO: Get participant pose
+        const { conference } = getCurrentConference(store.getState());
+
+        conference.sendCommand(
+            POSE_REQUEST_COMMAND,
+            { attributes: {} }
+        )
+
+        break;
+    }
+    case REQUEST_LOCAL_POSE: {
+        const { conference } = getCurrentConference(store.getState());
+        const { local } = getCurrentLocalPose(store.getState());
+
+        conference.sendCommand(
+            UPDATE_POSE_COMMAND,
+            { attributes: { participant: local } }
+        );
 
         break;
     }
@@ -69,6 +107,7 @@ MiddlewareRegistry.register(store => next => action => {
         // case UPDATE_PARTICIPANT_POSE:
         //     break;
     }
+
 
     return next(action);
 });
