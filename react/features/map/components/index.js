@@ -5,13 +5,15 @@ import React from 'react';
 import { Map } from './map'
 import { ParticipantController } from './keyboard'
 import { connect } from '../../base/redux';
+import { localPoseUpdated } from '../../base/pose/actions';
 
 type Props = {
     terrain: PoseTypes.Terrain,
     remoteParticipants: PoseTypes.Participants,
     localParticipant: PoseTypes.Participant,
     conference: any,
-    onLocalParticipantMove(newPose: PoseTypes.Pose): void
+    onLocalParticipantMove(newPose: PoseTypes.Pose): void,
+    updatePose: Function
 }
 
 function InteractiveMap(props: Props) {
@@ -20,11 +22,11 @@ function InteractiveMap(props: Props) {
         ...mapProps
     } = props
 
-
     return (
         <ParticipantController
             localPose = { props.localParticipant.pose }
-            onLocalParticipantMove = { props.onLocalParticipantMove }>
+            /* eslint-disable-next-line react/jsx-no-bind */
+            onLocalParticipantMove = { this.props.updatePose.bind(this) }>
             <Map { ...mapProps } />
         </ParticipantController>
     )
@@ -40,4 +42,10 @@ function _mapStateToProps(state) {
     };
 }
 
-export default connect(_mapStateToProps)(InteractiveMap);
+function _mapDispatchToProps(dispatch, ownProps) {
+    return {
+        updatePose: () => dispatch(localPoseUpdated(ownProps.localParticipant))
+    };
+}
+
+export default connect(_mapStateToProps, _mapStateToProps)(InteractiveMap);
