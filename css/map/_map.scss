@@ -1,24 +1,24 @@
+@mixin map-container-style {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: $mapZ;
+    box-sizing: border-box;
+
+    padding: ($desktopAppDragBarHeight - 5px) 5px 10px;
+}
+
 .tile-view {
     #map {
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        z-index: $mapZ;
+        @include map-container-style;
     }
 }
 
 .vertical-filmstrip {
     #map {
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        left: 0;
-        right: 0;
-        z-index: $mapZ;
-
-        padding: ($desktopAppDragBarHeight - 5px) 5px 10px;
+        @include map-container-style;
     }
 }
