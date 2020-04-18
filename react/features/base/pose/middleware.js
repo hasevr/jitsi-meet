@@ -51,8 +51,12 @@ type CommandValues = {
 MiddlewareRegistry.register(store => next => action => {
     switch (action.type) {
     case CONFERENCE_JOINED: {
+
         // Initilize participant information when local participant joined a conference.
-        const { conference }: { conference: JitsiConference } = store.getState()['features/base/conference'];
+        // const { conference }: { conference: JitsiConference } = store.getState()['features/base/conference'];
+        const conference = getCurrentConference(store);
+
+        console.log(`Conference: ${conference}`);
 
         // Setup pose-related command.
         conference.addCommandListener(

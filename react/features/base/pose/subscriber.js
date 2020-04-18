@@ -22,12 +22,14 @@ function _sendUpdatePoseCommand(local, store) {
     const state = store.getState();
     const conference = getCurrentConference(state);
 
-    conference.sendCommand(
-        UPDATE_POSE_COMMAND,
-        { attributes: { participant: local } }
-    );
+    if (conference) {
+        conference.sendCommand(
+            UPDATE_POSE_COMMAND,
+            { attributes: { participant: local } }
+        );
 
-    _updateAudioAndView(local, store);
+        _updateAudioAndView(local, store);
+    }
 
     return;
 }

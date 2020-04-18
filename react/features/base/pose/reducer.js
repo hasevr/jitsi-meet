@@ -30,9 +30,15 @@ const DEFAULT_STATE = {
 
     /**
      * @public
-     * @type {Participant | undefined}
+     * @type {Participant}
      */
-    localParticipant: undefined,
+    localParticipant: {
+        id: -1,
+        pose: {
+            position: [ 0, 0 ],
+            orientation: 0
+        }
+    },
     terrain: {
         width: 100,
         height: 100
