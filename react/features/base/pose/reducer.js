@@ -82,6 +82,9 @@ ReducerRegistry.register(STORE_NAME, (state: Object = DEFAULT_STATE, action) => 
             localParticipant: newState.localParticipant
         };
     case REMOTE_POSE_UPDATED:
+        if (targetParticipant.id < 0) {
+            break;
+        }
         newState.participants[targetParticipant.id] = targetParticipant;
 
         return {
