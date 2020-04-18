@@ -18,6 +18,10 @@ class ViewUpdater {
      */
     update(localParticipant: PoseType.Participant, remoteParticipants: PoseType.Participants) {
         const remoteVideoElements = document.querySelectorAll('#filmstripRemoteVideosContainer > [id^=participant_]')
+
+        if (!remoteVideoElements || remoteVideoElements.length === 0) {
+            return
+        }
         const currentIdOrder = remoteVideoElements.map(element => element.id.substr('participant_'.length))
         const elementMap = {}
 

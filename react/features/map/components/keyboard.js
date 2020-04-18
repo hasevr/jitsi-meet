@@ -15,11 +15,18 @@ export class ParticipantController extends Component<Props> {
 
         this._handleKeyPress = this._handleKeyPress.bind(this)
     }
+    componentDidUpdate() {
+        console.log('update', this.props.localPose.position)
+    }
     _handleKeyPress(event) {
+        console.log(this.props.localPose.position)
         const pose: PoseTypes.Pose = {
             position: [ ...this.props.localPose.position ],
-            rotation: this.props.localPose.rotation
+            orientation: this.props.localPose.orientation
         }
+
+        console.log(event.key)
+        console.log(pose.position)
 
         switch (event.key) {
 
@@ -30,29 +37,31 @@ export class ParticipantController extends Component<Props> {
         case 'ArrowLeft':
             pose.position[0] -= 1
             break;
-        case 's':
+        case 'ArrowDown':
             pose.position[1] += 1
             break;
-        case 'd':
+        case 'ArrowRight':
             pose.position[0] += 1
             break;
 
             // rotate
         case '[':
-            pose.rotation -= 1
+            pose.orientation -= 1
             break;
         case ']':
-            pose.rotation += 1
+            pose.orientation += 1
             break;
 
         default:
             break;
         }
 
-        pose.rotation %= 360
-        if (pose.rotation < 0) {
-            pose.rotation = pose.rotation + 360
+        pose.orientation %= 360
+        if (pose.orientation < 0) {
+            pose.orientation = pose.orientation + 360
         }
+
+        console.log(pose.position)
 
         this.props.onLocalParticipantMove(pose)
     }

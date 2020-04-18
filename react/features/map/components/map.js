@@ -61,7 +61,7 @@ function Participant(props: ParticipantProps) {
     return (
         <g
             key = { props.participant.id }
-            transform = { `rotate(${props.participant.pose.rotation},${center[0]},${center[1]})` }>
+            transform = { `rotate(${props.participant.pose.orientation},${center[0]},${center[1]})` }>
             <svg
                 height = { `${4 * PARTICIPANT_RADIUS}` }
                 viewBox = '0 0 4 4'
