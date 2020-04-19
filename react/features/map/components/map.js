@@ -1,5 +1,5 @@
 // @flow
-/* eslint-disable semi, require-jsdoc, no-unused-vars, valid-jsdoc, react/no-multi-comp, new-cap */
+/* eslint-disable semi, require-jsdoc, no-unused-vars, valid-jsdoc, react/no-multi-comp, new-cap, react-native/no-inline-styles, max-len */
 
 import React, { Components } from 'react';
 import * as PoseTypes from '../../../../modules/pose/types';
@@ -15,7 +15,8 @@ type Props = {
     terrain: PoseTypes.Terrain,
     remoteParticipants: PoseTypes.Participants,
     localParticipant: PoseTypes.Participant,
-    conference: any
+    conference: any,
+    firstPersonView: boolean
 }
 
 /**
@@ -24,20 +25,32 @@ type Props = {
  * 2. Pose of every participants.
  */
 export function Map(props: Props) {
+    const background = (<rect
+        height = { `${props.terrain.height}` }
+        style = {{ fill: 'rgba(0,0,0,0.5)' }}
+        width = { `${props.terrain.width}` }
+        x = '0'
+        y = '0' />)
+    const remote = Object.values(props.remoteParticipants).map(remoteParticipants => Participant({
+        participant: remoteParticipants,
+        color: 'blue'
+    }))
+    const local = Participant({
+        participant: props.localParticipant,
+        color: 'red'
+    })
+    const map = [ background, remote, local ]
+
+    const translate = `translate(${(props.terrain.width / 2) - props.localParticipant.pose.position[0]},${(props.terrain.height / 2) - props.localParticipant.pose.position[1]})`
+    const rotate = `rotate(${-props.localParticipant.pose.orientation},${props.localParticipant.pose.position[0]},${props.localParticipant.pose.position[1]})`
+
     return (
         <svg
             height = '100%'
             viewBox = { `0 0 ${props.terrain.width} ${props.terrain.height}` }
             width = '100%'
             xmlns = 'http://www.w3.org/2000/svg'>
-            {Object.values(props.remoteParticipants).map(remoteParticipants => Participant({
-                participant: remoteParticipants,
-                color: 'blue'
-            }))}
-            {Participant({
-                participant: props.localParticipant,
-                color: 'red'
-            })}
+            {props.firstPersonView ? <g transform = { `${translate} ${rotate}` } >{map}</g> : map }
         </svg>
     )
 }

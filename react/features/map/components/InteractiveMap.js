@@ -16,7 +16,8 @@ type Props = {
     onLocalParticipantMove(newPose: PoseTypes.Pose): void,
     updatePose: Function,
     dispatch: Function,
-    hide: boolean
+    hide: boolean,
+    firstPersonView: boolean
 };
 
 class InteractiveMap extends Component<Props> {
@@ -26,6 +27,7 @@ class InteractiveMap extends Component<Props> {
         super(props);
 
         this._onUpdatePose = this._onUpdatePose.bind(this);
+        this._isValidPose = this._isValidPose.bind(this);
     }
     _onUpdatePose(newPose: PoseTypes.Pose) {
         const localParticipant: PoseTypes.Participant = Object.assign({}, this.props.localParticipant);
@@ -33,6 +35,16 @@ class InteractiveMap extends Component<Props> {
         localParticipant.pose = newPose;
         this.props.dispatch(localPoseUpdated(localParticipant));
         console.log('Local pose dispatched.');
+    }
+    _isValidPose(pose: PoseTypes.Pose) {
+        if (pose.position[0] < 0 || pose.position[0] > this.props.terrain.width) {
+            return false;
+        }
+        if (pose.position[1] < 0 || pose.position[1] > this.props.terrain.height) {
+            return false;
+        }
+
+        return true;
     }
 
     render() {
@@ -50,8 +62,10 @@ class InteractiveMap extends Component<Props> {
 
         return (
             <ParticipantController
-                localPose = { this.props.localParticipant.pose }
+                firstPersonView = { this.props.firstPersonView }
                 /* eslint-disable-next-line react/jsx-no-bind */
+                isValidPose = { this._isValidPose }
+                localPose = { this.props.localParticipant.pose }
                 onLocalParticipantMove = { this._onUpdatePose }>
                 <Map { ...mapProps } />
             </ParticipantController>

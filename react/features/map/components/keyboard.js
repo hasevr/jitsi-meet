@@ -4,9 +4,14 @@
 import { Component } from 'react';
 import * as PoseTypes from '../../../../modules/pose/types';
 
+const MOVE_LENGTH = 1
+const ROTATE_DEGREE = 1
+
 type Props = {
     localPose: PoseTypes.Pose,
-    onLocalParticipantMove(newPose: PoseTypes.Pose): void
+    onLocalParticipantMove(newPose: PoseTypes.Pose): void,
+    isValidPose(pose: PoseTypes.Pose): boolean,
+    firstPersonView: boolean
 }
 
 export class ParticipantController extends Component<Props> {
@@ -19,49 +24,60 @@ export class ParticipantController extends Component<Props> {
         console.log('update', this.props.localPose.position)
     }
     _handleKeyPress(event) {
-        console.log(this.props.localPose.position)
         const pose: PoseTypes.Pose = {
             position: [ ...this.props.localPose.position ],
             orientation: this.props.localPose.orientation
         }
 
-        console.log(event.key)
-        console.log(pose.position)
+        let offset = [ 0, 0 ]
 
         switch (event.key) {
 
         // translate
         case 'ArrowUp':
-            pose.position[1] -= 1
+            offset[1] -= MOVE_LENGTH
             break;
         case 'ArrowLeft':
-            pose.position[0] -= 1
+            offset[0] -= MOVE_LENGTH
             break;
         case 'ArrowDown':
-            pose.position[1] += 1
+            offset[1] += MOVE_LENGTH
             break;
         case 'ArrowRight':
-            pose.position[0] += 1
+            offset[0] += MOVE_LENGTH
             break;
 
             // rotate
         case '[':
-            pose.orientation -= 1
+            pose.orientation -= ROTATE_DEGREE
             break;
         case ']':
-            pose.orientation += 1
+            pose.orientation += ROTATE_DEGREE
             break;
 
         default:
             break;
         }
 
+        if (this.props.firstPersonView) {
+            const radian = pose.orientation * Math.PI / 180
+
+            offset = [
+                (offset[0] * Math.cos(radian)) - (offset[1] * Math.sin(radian)),
+                (offset[1] * Math.cos(radian)) + (offset[0] * Math.sin(radian))
+            ]
+        }
+        pose.position[0] += offset[0]
+        pose.position[1] += offset[1]
+
         pose.orientation %= 360
         if (pose.orientation < 0) {
             pose.orientation = pose.orientation + 360
         }
 
-        console.log(pose.position)
+        if (!this.props.isValidPose(pose)) {
+            return
+        }
 
         this.props.onLocalParticipantMove(pose)
     }
