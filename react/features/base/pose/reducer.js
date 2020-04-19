@@ -33,7 +33,7 @@ const DEFAULT_STATE = {
      * @type {Participant}
      */
     localParticipant: {
-        id: -1,
+        id: '',
         pose: {
             position: [ 0, 0 ],
             orientation: 0
@@ -82,17 +82,13 @@ ReducerRegistry.register(STORE_NAME, (state: Object = DEFAULT_STATE, action) => 
             localParticipant: newState.localParticipant
         };
     case REMOTE_POSE_UPDATED:
-        if (targetParticipant.id < 0) {
-            break;
-        }
-        newState.participants[targetParticipant.id] = targetParticipant;
+        newState.remoteParticipants[targetParticipant.id] = targetParticipant;
 
         return {
             ...state,
-            remoteParticipants: newState.participants
+            remoteParticipants: newState.remoteParticipants
         }
     }
-
 
     return state;
 });
