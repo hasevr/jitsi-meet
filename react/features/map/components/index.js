@@ -25,8 +25,12 @@ class InteractiveMap extends Component<Props> {
 
         this._onUpdatePose = this._onUpdatePose.bind(this);
     }
-    _onUpdatePose() {
-        this.props.dispatch(localPoseUpdated(this.props.localParticipant));
+    _onUpdatePose(newPose: PoseTypes.Pose) {
+        const localParticipant: PoseTypes.Participant = Object.assign({}, this.props.localParticipant);
+
+        localParticipant.pose = newPose;
+        this.props.dispatch(localPoseUpdated(localParticipant));
+        console.log('Local pose dispatched.');
     }
 
     render() {

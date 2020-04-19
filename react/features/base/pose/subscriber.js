@@ -23,9 +23,18 @@ function _sendUpdatePoseCommand(local, store) {
     const conference = getCurrentConference(state);
 
     if (conference) {
+        console.log(local);
+
         conference.sendCommand(
             UPDATE_POSE_COMMAND,
-            { attributes: { participant: local } }
+            {
+                attributes: {
+                    id: local.id,
+                    positionX: local.pose.position[0],
+                    positionY: local.pose.position[1],
+                    orientation: local.pose.orientation
+                }
+            }
         );
 
         _updateAudioAndView(local, store);

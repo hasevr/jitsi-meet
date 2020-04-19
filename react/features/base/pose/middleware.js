@@ -61,8 +61,10 @@ MiddlewareRegistry.register(store => next => action => {
         // Setup pose-related command.
         conference.addCommandListener(
             UPDATE_POSE_COMMAND,
-            ({ attributes }: { attributes: { participant: Participant } }) => {
-                store.dispatch(remotePoseUpdated(attributes.participant));
+            values => {
+                const attributes = values.attributes;
+
+                _onPoseUpdated(attributes, store);
             }
         );
         conference.addCommandListener(
@@ -86,7 +88,7 @@ MiddlewareRegistry.register(store => next => action => {
         const conference = getCurrentConference(store.getState());
 
         if (conference) {
-            conference.sendCommand(
+            conference.sendCommandOnce(
                 POSE_REQUEST_COMMAND,
                 { attributes: {} }
             )
@@ -98,9 +100,17 @@ MiddlewareRegistry.register(store => next => action => {
         const conference = getCurrentConference(store.getState());
         const local = getCurrentLocalPose(store.getState());
 
-        conference.sendCommand(
+        console.log(local);
+        conference.sendCommandOnce(
             UPDATE_POSE_COMMAND,
-            { attributes: { participant: local } }
+            {
+                attributes: {
+                    id: local.id,
+                    positionX: local.pose.position[0],
+                    positionY: local.pose.position[1],
+                    orientation: local.pose.orientation
+                }
+            }
         );
 
         break;
@@ -117,3 +127,16 @@ MiddlewareRegistry.register(store => next => action => {
 
     return next(action);
 });
+
+function _onPoseUpdated(attributes, store) {
+    // FIXME: all attribute values are string.
+    const local = {
+        id: attributes.id,
+        pose: {
+            position: [ attributes.positionX, attributes.positionY ],
+            orientation: attributes.orientation
+        }
+    };
+
+    store.dispatch(remotePoseUpdated(local));
+}
