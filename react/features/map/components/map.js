@@ -26,9 +26,9 @@ type Props = {
 export function Map(props: Props) {
     return (
         <svg
-            height = 'auto'
+            height = '100%'
             viewBox = { `0 0 ${props.terrain.width} ${props.terrain.height}` }
-            width = 'auto'
+            width = '100%'
             xmlns = 'http://www.w3.org/2000/svg'>
             {Object.values(props.remoteParticipants).map(remoteParticipants => Participant({
                 participant: remoteParticipants,

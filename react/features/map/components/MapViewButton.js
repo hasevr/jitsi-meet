@@ -7,14 +7,14 @@ import {
     sendAnalytics
 } from '../../analytics';
 import { translate } from '../../base/i18n';
-import { IconTileView } from '../../base/icons';
+import { IconMap } from '../../base/icons';
 import { connect } from '../../base/redux';
 import {
     AbstractButton,
     type AbstractButtonProps
 } from '../../base/toolbox';
 
-import { setTileView } from '../actions';
+import { setMapView } from '../actions';
 import logger from '../logger';
 
 /**
@@ -25,7 +25,7 @@ type Props = AbstractButtonProps & {
     /**
      * Whether or not tile view layout has been enabled as the user preference.
      */
-    _tileViewEnabled: boolean,
+    _mapViewEnabled: boolean,
 
     /**
      * Used to dispatch actions from the buttons.
@@ -38,12 +38,12 @@ type Props = AbstractButtonProps & {
  *
  * @extends AbstractButton
  */
-class TileViewButton<P: Props> extends AbstractButton<P, *> {
-    accessibilityLabel = 'toolbar.accessibilityLabel.mapView';
-    icon = IconTileView;
-    label = 'toolbar.enterMapView';
-    toggledLabel = 'toolbar.exitMapView';
-    tooltip = 'toolbar.tileViewToggle';
+class MapViewButton<P: Props> extends AbstractButton<P, *> {
+    accessibilityLabel = 'toolbar.accessibilityLabel.tileView';
+    icon = IconMap;
+    label = 'toolbar.enterTileView';
+    toggledLabel = 'toolbar.exitTileView';
+    tooltip = 'toolbar.toggleMap';
 
     /**
      * Handles clicking / pressing the button.
@@ -53,17 +53,17 @@ class TileViewButton<P: Props> extends AbstractButton<P, *> {
      * @returns {void}
      */
     _handleClick() {
-        const { _tileViewEnabled, dispatch } = this.props;
+        const { _mapViewEnabled, dispatch } = this.props;
 
         sendAnalytics(createToolbarEvent(
-            'tileview.button',
+            'mapview.button',
             {
-                'is_enabled': _tileViewEnabled
+                'is_enabled': _mapViewEnabled
             }));
-        const value = !_tileViewEnabled;
+        const value = !_mapViewEnabled;
 
-        logger.debug(`Tile view ${value ? 'enable' : 'disable'}`);
-        dispatch(setTileView(value));
+        logger.debug(`Map view ${value ? 'enable' : 'disable'}`);
+        dispatch(setMapView(value));
     }
 
     /**
@@ -74,23 +74,23 @@ class TileViewButton<P: Props> extends AbstractButton<P, *> {
      * @returns {boolean}
      */
     _isToggled() {
-        return this.props._tileViewEnabled;
+        return this.props._mapViewEnabled;
     }
 }
 
 /**
  * Maps (parts of) the redux state to the associated props for the
- * {@code TileViewButton} component.
+ * {@code MapViewButton} component.
  *
  * @param {Object} state - The Redux state.
  * @returns {{
- *     _tileViewEnabled: boolean
+ *     _mapViewEnabled: boolean
  * }}
  */
 function _mapStateToProps(state) {
     return {
-        _tileViewEnabled: state['features/base/pose'].tileViewEnabled
+        _mapViewEnabled: state['features/map'].mapViewEnabled
     };
 }
 
-export default translate(connect(_mapStateToProps)(TileViewButton));
+export default translate(connect(_mapStateToProps)(MapViewButton));

@@ -51,7 +51,7 @@ var interfaceConfig = {
         'fodeviceselection', 'hangup', 'profile', 'info', 'chat', 'recording',
         'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
         'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
-        'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone'
+        'tileview', 'mapview', 'videobackgroundblur', 'download', 'help', 'mute-everyone'
     ],
 
     SETTINGS_SECTIONS: [ 'devices', 'language', 'moderator', 'profile', 'calendar' ],
@@ -253,5 +253,7 @@ var interfaceConfig = {
      PHONE_NUMBER_REGEX
     */
 };
+
+console.log('inittoolbar', interfaceConfig.TOOLBAR_BUTTONS);
 
 /* eslint-enable no-unused-vars, no-var, max-len */

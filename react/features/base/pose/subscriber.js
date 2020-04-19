@@ -47,5 +47,6 @@ function _updateAudioAndView(change, store) {
     const { localParticipant, remoteParticipants } = store.getState()['features/base/pose'];
 
     audioUpdater.update(localParticipant, remoteParticipants);
-    viewUpdater.update(localParticipant, remoteParticipants);
+
+    // viewUpdater.update(localParticipant, remoteParticipants);
 }

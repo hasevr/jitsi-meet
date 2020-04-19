@@ -62,6 +62,9 @@ import {
     toggleTileView
 } from '../../../video-layout';
 import {
+    MapViewButton
+} from '../../../map';
+import {
     OverflowMenuVideoQualityItem,
     VideoQualityDialog
 } from '../../../video-quality';
@@ -1101,6 +1104,8 @@ class Toolbox extends Component<Props, State> {
                 );
             case 'tileview':
                 return <TileViewButton showLabel = { true } />;
+            case 'mapview':
+                return <MapViewButton showLabel = { true } />;
             case 'localrecording':
                 return (
                     <OverflowMenuItem
@@ -1193,6 +1198,9 @@ class Toolbox extends Component<Props, State> {
         if (this._shouldShowButton('invite') && !_hideInviteButton) {
             buttonsRight.push('invite');
         }
+        if (this._shouldShowButton('mapview')) {
+            buttonsRight.push('mapview');
+        }
         if (this._shouldShowButton('tileview')) {
             buttonsRight.push('tileview');
         }
@@ -1272,6 +1280,8 @@ class Toolbox extends Component<Props, State> {
                                 this._onToolbarOpenLocalRecordingInfoDialog
                             } />
                     }
+                    { buttonsRight.indexOf('mapview') !== -1
+                        && <MapViewButton />}
                     { buttonsRight.indexOf('tileview') !== -1
                         && <TileViewButton /> }
                     { buttonsRight.indexOf('invite') !== -1
@@ -1363,6 +1373,10 @@ function _mapStateToProps(state) {
     // NB: We compute the buttons again here because if URL parameters were used to
     // override them we'd miss it.
     const buttons = new Set(interfaceConfig.TOOLBAR_BUTTONS);
+
+    if (!buttons.mapview) {
+        buttons.add('mapview');
+    } // TEST: TOOLBAR_BUTTONS is load from server, use this to override default config
 
     return {
         _chatOpen: state['features/chat'].isOpen,

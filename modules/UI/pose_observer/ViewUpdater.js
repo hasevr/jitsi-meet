@@ -22,6 +22,7 @@ class ViewUpdater {
         if (!remoteVideoElements || remoteVideoElements.length === 0) {
             return
         }
+        console.log(remoteVideoElements)
         const currentIdOrder = remoteVideoElements.map(element => element.id.substr('participant_'.length))
         const elementMap = {}
 
