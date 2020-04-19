@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 
 import { Avatar } from '../../base/avatar';
 
-const PARTICIPANT_RADIUS = 0.5
+const PARTICIPANT_RADIUS = 1
 
 declare var APP: Object
 
@@ -78,21 +78,29 @@ function Participant(props: ParticipantProps) {
                 <polygon
                     fill = { props.color }
                     points = { trianglePoints.map(point => `${point[0]},${point[1]}`).join(' ') } />
+                <AvatarObject
+                    participant = { props.participant }
+                    radius = { 1 }
+                    x = { 1 }
+                    y = { 1 } />
             </svg>
         </g>
     )
 }
 
 type AvatarObjectProps = {
-    participant: PoseTypes.Participant
+    participant: PoseTypes.Participant,
+    x: number,
+    y: number,
+    radius: number
 }
 function AvatarObject(props: AvatarObjectProps) {
     return (
         <foreignObject
-            height = { `${PARTICIPANT_RADIUS * 2}` }
-            width = { `${PARTICIPANT_RADIUS * 2}` }
-            x = { `${-PARTICIPANT_RADIUS}` }
-            y = { `${-PARTICIPANT_RADIUS}` } >
+            height = { `${props.radius * 2}` }
+            width = { `${props.radius * 2}` }
+            x = { `${props.x}` }
+            y = { `${props.y}` } >
             <Provider store = { APP.store }>
                 <Avatar
                     className = 'userAvatar'
