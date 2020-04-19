@@ -6,12 +6,12 @@ export type Pose = {
 }
 
 export type Participant = {
-    id: number,
+    id: string,
     pose: Pose
 }
 
 export type Participants = {
-    [key: number]: Participant
+    [key: string]: Participant
 }
 
 export type Terrain = {
@@ -20,7 +20,7 @@ export type Terrain = {
 }
 
 export type Conference = {
-    id: number,
+    id: string,
     participants: Participants,
     terrain: Terrain
 }

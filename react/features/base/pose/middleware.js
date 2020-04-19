@@ -17,15 +17,12 @@ import {
     POSE_INIT_FINISHED,
     REQUEST_LOCAL_POSE
 } from './actionTypes';
-import type { Pose, Participant } from './actionTypes';
+import type { Pose } from './actionTypes';
 import { MiddlewareRegistry } from '../redux';
 
 import { CONFERENCE_JOINED, getCurrentConference } from '../conference';
-import { PARTICIPANT_JOINED } from '../participants';
+import { PARTICIPANT_JOINED, getLocalParticipant } from '../participants';
 import { getCurrentLocalPose } from './functions';
-
-export const SET_LOCAL_POSE_COMMAND = 'set_local_pose';
-export const FETCH_ALL_POSES_COMMAND = 'fetch_all_poses';
 
 export const UPDATE_POSE_COMMAND = 'update_pose';
 export const POSE_REQUEST_COMMAND = 'pose_request';
@@ -64,7 +61,7 @@ MiddlewareRegistry.register(store => next => action => {
             values => {
                 const attributes = values.attributes;
 
-                _onPoseUpdated(attributes, store);
+                _onRemotePoseUpdated(attributes, store);
             }
         );
         conference.addCommandListener(
@@ -87,28 +84,63 @@ MiddlewareRegistry.register(store => next => action => {
         // FIXME: conference may not exist when local participant left room.
         const conference = getCurrentConference(store.getState());
 
-        if (conference) {
-            conference.sendCommandOnce(
-                POSE_REQUEST_COMMAND,
-                { attributes: {} }
-            )
+        /**
+         * @type {import('../participants/reducer').Participant}
+         */
+        const participant = action.participant;
+
+        if (participant.local) {
+            store.dispatch(
+                localPoseUpdated(
+                    {
+                        id: participant.id,
+                        pose: {
+                            position: [ 0, 0 ],
+                            orientation: 0
+                        }
+                    }
+                )
+            );
+        } else {
+            store.dispatch(
+                remotePoseUpdated(
+                    {
+                        id: participant.id,
+                        pose: {
+                            position: [ 0, 0 ],
+                            orientation: 0
+                        }
+                    }
+                )
+            );
+
+            if (conference) {
+                conference.sendCommandOnce(
+                    POSE_REQUEST_COMMAND,
+                    { attributes: {} }
+                )
+            }
         }
+
 
         break;
     }
     case REQUEST_LOCAL_POSE: {
         const conference = getCurrentConference(store.getState());
-        const local = getCurrentLocalPose(store.getState());
+        const localPose = getCurrentLocalPose(store.getState());
+        const localParticipant = getLocalParticipant(store.getState());
 
-        console.log(local);
+        localPose.id = localParticipant.id;
+
         conference.sendCommandOnce(
             UPDATE_POSE_COMMAND,
             {
                 attributes: {
-                    id: local.id,
-                    positionX: local.pose.position[0],
-                    positionY: local.pose.position[1],
-                    orientation: local.pose.orientation
+                    id: localPose.id,
+                    positionX: localPose.pose.position[0],
+                    positionY: localPose.pose.position[1],
+                    orientation: localPose.pose.orientation,
+                    test: true
                 }
             }
         );
@@ -128,15 +160,15 @@ MiddlewareRegistry.register(store => next => action => {
     return next(action);
 });
 
-function _onPoseUpdated(attributes, store) {
+function _onRemotePoseUpdated(attributes, store) {
     // FIXME: all attribute values are string.
-    const local = {
+    const remote = {
         id: attributes.id,
         pose: {
-            position: [ attributes.positionX, attributes.positionY ],
-            orientation: attributes.orientation
+            position: [ parseInt(attributes.positionX, 10), parseInt(attributes.positionY, 10) ],
+            orientation: parseInt(attributes.orientation, 10)
         }
     };
 
-    store.dispatch(remotePoseUpdated(local));
+    store.dispatch(remotePoseUpdated(remote));
 }

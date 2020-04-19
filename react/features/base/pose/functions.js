@@ -3,6 +3,7 @@
 
 import { getCurrentConference } from '../conference';
 import type { Pose, Participant } from './actionTypes';
+import { toState } from '../redux';
 
 /**
  * Set pose of local participant.
@@ -18,8 +19,8 @@ export function setParticipantPoseLib(participant: Participant, dispatch: Functi
 }
 
 
-export function getCurrentLocalPose(store: any) {
-    const local = store.getState()['features/base/pose'].localParticipant;
+export function getCurrentLocalPose(stateful: any) {
+    const local = toState(stateful)['features/base/pose'].localParticipant;
 
     return local;
 }
