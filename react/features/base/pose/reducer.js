@@ -8,7 +8,7 @@ import {
     LOCAL_POSE_UPDATED,
     REMOTE_POSE_UPDATED
 } from './actionTypes';
-import { ReducerRegistry } from '../redux';
+import { ReducerRegistry, set } from '../redux';
 import type { Participant, Participants } from './actionTypes';
 
 type PoseStates = 'NotReady' | 'Fetching' | 'Finished';
@@ -81,17 +81,21 @@ ReducerRegistry.register(STORE_NAME, (state: Object = DEFAULT_STATE, action) => 
             ...state,
             localParticipant: newState.localParticipant
         };
-    case REMOTE_POSE_UPDATED:
+    case REMOTE_POSE_UPDATED: {
         if (targetParticipant.id === newState.localParticipant.id) {
             break;
         }
 
-        newState.remoteParticipants[targetParticipant.id] = targetParticipant;
+        const newRemoteParticipants = Object.assign(
+            {},
+            newState.remoteParticipants,
+            { [targetParticipant.id]: targetParticipant }
+        );
 
         return {
             ...state,
-            remoteParticipants: newState.remoteParticipants
-        }
+            remoteParticipants: newRemoteParticipants
+        }; }
     }
 
     return state;
