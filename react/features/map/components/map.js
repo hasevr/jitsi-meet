@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 
 import { Avatar } from '../../base/avatar';
 
-const PARTICIPANT_RADIUS = 1
+const PARTICIPANT_RADIUS = 2.5
 
 declare var APP: Object
 
@@ -83,14 +83,14 @@ function Participant(props: ParticipantProps) {
                 width = { `${4 * PARTICIPANT_RADIUS}` }
                 x = { `${center[0] - (2 * PARTICIPANT_RADIUS)}` }
                 y = { `${center[1] - (2 * PARTICIPANT_RADIUS)}` }>
-                <circle
-                    cx = '2'
-                    cy = '2'
-                    fill = { props.color }
-                    r = '1' />
                 <polygon
                     fill = { props.color }
                     points = { trianglePoints.map(point => `${point[0]},${point[1]}`).join(' ') } />
+                <circle
+                    cx = '2'
+                    cy = '2'
+                    fill = 'black'
+                    r = '1' />
                 <AvatarObject
                     participant = { props.participant }
                     radius = { 1 }

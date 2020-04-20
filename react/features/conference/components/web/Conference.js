@@ -207,7 +207,7 @@ class Conference extends AbstractConference<Props, *> {
                 <div id = 'map'>
                     <Map
                         conference = {{}}
-                        firstPersonView = { true }
+                        firstPersonView = { false }
                         onLocalParticipantMove = { () => { // eslint-disable-line react/jsx-no-bind
                             console.log('onLocalParticipantMove');
                         } } />

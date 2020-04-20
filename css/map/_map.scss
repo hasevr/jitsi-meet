@@ -9,6 +9,7 @@
     box-sizing: border-box;
 
     padding: ($desktopAppDragBarHeight - 5px) 5px 10px;
+    pointer-events: none;
 }
 
 .tile-view {
