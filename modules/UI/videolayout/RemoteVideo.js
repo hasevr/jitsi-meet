@@ -92,6 +92,8 @@ export default class RemoteVideo extends SmallVideo {
         this.baseVolume = 1;
         this.attenuation = 1;
 
+        this.disposers = [];
+
         /**
          * The flag is set to <tt>true</tt> after the 'onplay' event has been
          * triggered on the current video element. It goes back to <tt>false</tt>

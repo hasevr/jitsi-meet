@@ -18,6 +18,8 @@ import { VIDEO_CONTAINER_TYPE } from './VideoContainer';
 
 import LocalVideo from './LocalVideo';
 
+import { bindAttenuation } from '../pose_observer/AttenuationUpdater';
+
 const remoteVideos = {};
 let localVideoThumbnail = null;
 
@@ -291,6 +293,8 @@ const VideoLayout = {
         const jitsiParticipant = APP.conference.getParticipantById(id);
         const remoteVideo = new RemoteVideo(jitsiParticipant, VideoLayout);
 
+        remoteVideo.disposers.push(bindAttenuation(remoteVideo));
+
         this._setRemoteControlProperties(jitsiParticipant, remoteVideo);
         this.addRemoteVideoContainer(id, remoteVideo);
 
@@ -475,6 +479,8 @@ const VideoLayout = {
         const remoteVideo = remoteVideos[id];
 
         if (remoteVideo) {
+            remoteVideo.disposers.forEach(disposer => disposer());
+
             // Remove remote video
             logger.info(`Removing remote video: ${id}`);
             delete remoteVideos[id];

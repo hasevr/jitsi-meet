@@ -27,6 +27,7 @@ type Props = {
 export function Map(props: Props) {
     const background = (<rect
         height = { `${props.terrain.height}` }
+        key = 'background'
         style = {{ fill: 'rgba(0,0,0,0.5)' }}
         width = { `${props.terrain.width}` }
         x = '0'
@@ -50,7 +51,9 @@ export function Map(props: Props) {
             viewBox = { `0 0 ${props.terrain.width} ${props.terrain.height}` }
             width = '100%'
             xmlns = 'http://www.w3.org/2000/svg'>
-            {props.firstPersonView ? <g transform = { `${translate} ${rotate}` } >{map}</g> : map }
+            {props.firstPersonView ? <g
+                key = 'first-person-view'
+                transform = { `${translate} ${rotate}` } >{map}</g> : map }
         </svg>
     )
 }

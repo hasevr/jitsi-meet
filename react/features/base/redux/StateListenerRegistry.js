@@ -117,13 +117,17 @@ class StateListenerRegistry {
      * @param {Function} listener - The listener to register with this
      * {@code StateListenerRegistry} so that it gets invoked when the value
      * returned by the specified {@code selector} changes.
-     * @returns {void}
+     * @returns {Function} - The function to unregister the listener.
      */
     register(selector: Selector, listener: Listener) {
-        this._selectorListeners.add({
+        const obj = {
             listener,
             selector
-        });
+        };
+
+        this._selectorListeners.add(obj);
+
+        return () => this._selectorListeners.delete(obj);
     }
 
     /**

@@ -24,6 +24,12 @@ class AudioUpdater {
     _setVolume(participantId: number, attenuation: number) {
         const remoteVideo = VideoLayout.getSmallVideo(participantId)
 
+        if (!remoteVideo) {
+            console.warn(`No remote video of participant ${participantId}`)
+
+            return
+        }
+
         remoteVideo.setAudioAttenuation(attenuation)
     }
 }
