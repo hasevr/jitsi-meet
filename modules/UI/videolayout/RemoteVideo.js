@@ -92,7 +92,8 @@ export default class RemoteVideo extends SmallVideo {
         this.baseVolume = 1;
         this.attenuation = 1;
 
-        this.disposers = [];
+        this.disposers = []; // called before this object is destructed
+        this.onAudioStreamElementUpdate = []; // called when audio stream element is updated
 
         /**
          * The flag is set to <tt>true</tt> after the 'onplay' event has been
@@ -539,7 +540,9 @@ export default class RemoteVideo extends SmallVideo {
         stream.attach(streamElement);
 
         if (!isVideo) {
+            this.onAudioStreamElementUpdate.forEach(func => func(this._audioStreamElement, streamElement));
             this._audioStreamElement = streamElement;
+
 
             // If the remote video menu was created before the audio stream was
             // attached we need to update the menu in order to show the volume
