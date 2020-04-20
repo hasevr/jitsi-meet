@@ -2,9 +2,9 @@
 /* eslint-disable semi, require-jsdoc, no-unused-vars, valid-jsdoc, react/no-multi-comp, new-cap */
 
 import { StateListenerRegistry } from '../../../react/features/base/redux';
-import { BaseVolumeCalculator } from './VolumeCalculator'
+import { BaseVolumeCalculator, Linear as LinearVolumeCalculator } from './VolumeCalculator'
 
-const calculator = new BaseVolumeCalculator()
+const calculator: BaseVolumeCalculator = new LinearVolumeCalculator(1)
 
 function selectorFactory(remoteVideo) {
     return (state, prevSelection) => {
@@ -21,7 +21,7 @@ function selectorFactory(remoteVideo) {
 
 function listenerFactory(remoteVideo) {
     return selection => {
-        const attenuation = calculator.getVolume(selection[0], selection[1])
+        const attenuation = calculator.getVolume(selection[0].pose, selection[1].pose)
 
         remoteVideo.setAudioAttenuation(attenuation)
 
