@@ -34,7 +34,6 @@ class InteractiveMap extends Component<Props> {
 
         localParticipant.pose = newPose;
         this.props.dispatch(localPoseUpdated(localParticipant));
-        console.log('Local pose dispatched.');
     }
     _isValidPose(pose: PoseTypes.Pose) {
         if (pose.position[0] < 0 || pose.position[0] > this.props.terrain.width) {

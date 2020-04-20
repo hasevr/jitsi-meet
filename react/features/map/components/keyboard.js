@@ -20,9 +20,6 @@ export class ParticipantController extends Component<Props> {
 
         this._handleKeyPress = this._handleKeyPress.bind(this)
     }
-    componentDidUpdate() {
-        console.log('update', this.props.localPose.position)
-    }
     _handleKeyPress(event) {
         const pose: PoseTypes.Pose = {
             position: [ ...this.props.localPose.position ],
