@@ -8,7 +8,8 @@ import {
     notifyPoseInitFinished,
     remotePoseUpdated,
     localPoseUpdated,
-    requestLocalPose
+    requestLocalPose,
+    remotePoseDeleted
 } from './actions';
 import {
     SET_PARTICIPANT_POSE,
@@ -21,7 +22,7 @@ import type { Pose } from './actionTypes';
 import { MiddlewareRegistry } from '../redux';
 
 import { CONFERENCE_JOINED, getCurrentConference } from '../conference';
-import { PARTICIPANT_JOINED, getLocalParticipant } from '../participants';
+import { PARTICIPANT_JOINED, getLocalParticipant, PARTICIPANT_LEFT } from '../participants';
 import { getCurrentLocalPose } from './functions';
 
 export const UPDATE_POSE_COMMAND = 'update_pose';
@@ -123,6 +124,12 @@ MiddlewareRegistry.register(store => next => action => {
         }
 
 
+        break;
+    }
+    case PARTICIPANT_LEFT: {
+        const remote = action.participant;
+
+        store.dispatch(remotePoseDeleted(remote.id));
         break;
     }
     case REQUEST_LOCAL_POSE: {

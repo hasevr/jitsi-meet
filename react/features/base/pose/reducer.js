@@ -6,7 +6,8 @@ import {
     SET_PARTICIPANT_POSE,
     GET_ALL_PARTICIPANT_POSES,
     LOCAL_POSE_UPDATED,
-    REMOTE_POSE_UPDATED
+    REMOTE_POSE_UPDATED,
+    REMOTE_POSE_DELETED
 } from './actionTypes';
 import { ReducerRegistry, set } from '../redux';
 import type { Participant, Participants } from './actionTypes';
@@ -49,9 +50,6 @@ const STORE_NAME = 'features/base/pose';
 
 
 ReducerRegistry.register(STORE_NAME, (state: Object = DEFAULT_STATE, action) => {
-    const targetParticipant: Participant = action.participant;
-    const newState = Object.assign({}, state);
-
     switch (action.type) {
 
     // case GET_ALL_PARTICIPANT_POSES:
@@ -74,14 +72,21 @@ ReducerRegistry.register(STORE_NAME, (state: Object = DEFAULT_STATE, action) => 
     //         participants: newState.participants,
     //         localParticipant: targetParticipant
     //     };
-    case LOCAL_POSE_UPDATED:
+    case LOCAL_POSE_UPDATED: {
+        const targetParticipant: Participant = action.participant;
+        const newState = Object.assign({}, state);
+
         newState.localParticipant = targetParticipant;
 
         return {
             ...state,
             localParticipant: newState.localParticipant
         };
+    }
     case REMOTE_POSE_UPDATED: {
+        const targetParticipant: Participant = action.participant;
+        const newState = Object.assign({}, state);
+
         if (targetParticipant.id === newState.localParticipant.id) {
             break;
         }
@@ -95,7 +100,21 @@ ReducerRegistry.register(STORE_NAME, (state: Object = DEFAULT_STATE, action) => 
         return {
             ...state,
             remoteParticipants: newRemoteParticipants
-        }; }
+        };
+    }
+    case REMOTE_POSE_DELETED: {
+        const targetId = action.remoteId;
+
+        if (targetId === state.localParticipant.id) {
+            break;
+        }
+
+        const newRemoteParticipants = { ...state.remoteParticipants };
+
+        delete newRemoteParticipants[targetId];
+
+        return set(state, 'remoteParticipants', newRemoteParticipants);
+    }
     }
 
     return state;

@@ -8,10 +8,10 @@ import {
     POSE_INIT_FINISHED,
     LOCAL_POSE_UPDATED,
     REMOTE_POSE_UPDATED,
-    REQUEST_LOCAL_POSE
+    REQUEST_LOCAL_POSE,
+    REMOTE_POSE_DELETED
 } from './actionTypes';
 import type { Participant } from './actionTypes';
-import { SET_LOCAL_POSE_COMMAND } from './middleware';
 
 
 /**
@@ -81,6 +81,13 @@ export function remotePoseUpdated(remote: Participant) {
     return {
         type: REMOTE_POSE_UPDATED,
         participant: remote
+    };
+}
+
+export function remotePoseDeleted(remoteId: string) {
+    return {
+        type: REMOTE_POSE_DELETED,
+        remoteId
     };
 }
 
