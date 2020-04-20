@@ -165,8 +165,8 @@ function _onRemotePoseUpdated(attributes, store) {
     const remote = {
         id: attributes.id,
         pose: {
-            position: [ parseFloat(attributes.positionX, 10), parseFloat(attributes.positionY, 10) ],
-            orientation: parseFloat(attributes.orientation, 10)
+            position: [ parseFloat(attributes.positionX), parseFloat(attributes.positionY) ],
+            orientation: parseFloat(attributes.orientation)
         }
     };
 
