@@ -18,7 +18,7 @@ import { VIDEO_CONTAINER_TYPE } from './VideoContainer';
 
 import LocalVideo from './LocalVideo';
 
-import { bindAttenuation } from '../pose_observer/AttenuationUpdater';
+import { bindStereo } from '../pose_observer/StereoUpdater';
 
 const remoteVideos = {};
 let localVideoThumbnail = null;
@@ -293,7 +293,7 @@ const VideoLayout = {
         const jitsiParticipant = APP.conference.getParticipantById(id);
         const remoteVideo = new RemoteVideo(jitsiParticipant, VideoLayout);
 
-        remoteVideo.disposers.push(bindAttenuation(remoteVideo));
+        remoteVideo.disposers.push(bindStereo(remoteVideo));
 
         this._setRemoteControlProperties(jitsiParticipant, remoteVideo);
         this.addRemoteVideoContainer(id, remoteVideo);
