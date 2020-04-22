@@ -77,7 +77,6 @@ export default class RemoteVideo extends SmallVideo {
         this.id = user.getId();
         this.videoSpanId = `participant_${this.id}`;
 
-        this._audioStreamElement = null;
         this._supportsRemoteControl = false;
         this.statsPopoverLocation = interfaceConfig.VERTICAL_FILMSTRIP ? 'left bottom' : 'top center';
         this.addRemoteVideoContainer();
@@ -93,6 +92,8 @@ export default class RemoteVideo extends SmallVideo {
         this.attenuation = 1;
 
         this.disposers = [];
+        this.setAudioVolume = undefined;
+        this.setAudioStream = undefined;
 
         /**
          * The flag is set to <tt>true</tt> after the 'onplay' event has been
@@ -189,7 +190,7 @@ export default class RemoteVideo extends SmallVideo {
             }
         }
 
-        const initialVolumeValue = this.baseVolume;// this._audioStreamElement && this._audioStreamElement.volume;
+        const initialVolumeValue = this.baseVolume;
 
         // hide volume when in silent mode
         const onVolumeChange
@@ -328,9 +329,7 @@ export default class RemoteVideo extends SmallVideo {
      * @param {int} newVal - The value to set the slider to.
      */
     _setAudioVolume(newVal) {
-        if (this._audioStreamElement) {
-            this._audioStreamElement.volume = newVal;
-        }
+        this.setAudioVolume(newVal);
     }
 
     /**
@@ -528,18 +527,18 @@ export default class RemoteVideo extends SmallVideo {
             return;
         }
 
-        const streamElement = SmallVideo.createStreamElement(stream);
+        if (isVideo) {
+            const streamElement = SmallVideo.createStreamElement(stream);
 
-        // Put new stream element always in front
-        UIUtils.prependChild(this.container, streamElement);
+            // Put new stream element always in front
+            UIUtils.prependChild(this.container, streamElement);
 
-        $(streamElement).hide();
+            $(streamElement).hide();
 
-        this.waitForPlayback(streamElement, stream);
-        stream.attach(streamElement);
-
-        if (!isVideo) {
-            this._audioStreamElement = streamElement;
+            this.waitForPlayback(streamElement, stream);
+            stream.attach(streamElement);
+        } else {
+            this.setAudioStream(stream);
 
             // If the remote video menu was created before the audio stream was
             // attached we need to update the menu in order to show the volume
