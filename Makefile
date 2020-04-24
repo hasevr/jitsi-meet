@@ -61,6 +61,18 @@ deploy-lib-jitsi-meet:
 		$(LIBJITSIMEET_DIR)/modules/browser/capabilities.json \
 		$(DEPLOY_DIR)
 
+deploy-dev-lib-jitsi-meet:
+	cp \
+		$(LIBJITSIMEET_DIR)/lib-jitsi-meet.min.js \
+		$(LIBJITSIMEET_DIR)/lib-jitsi-meet.min.map \
+		$(LIBJITSIMEET_DIR)/connection_optimization/external_connect.js \
+		$(LIBJITSIMEET_DIR)/modules/browser/capabilities.json \
+		$(DEPLOY_DIR)
+	mv \
+		$(DEPLOY_DIR)/lib-jitsi-meet.min.js \
+		$(DEPLOY_DIR)/lib-jitsi-meet.js 
+
+
 deploy-libflac:
 	cp \
 		$(LIBFLAC_DIR)/libflac4-1.3.2.min.js \
@@ -80,8 +92,8 @@ deploy-css:
 deploy-local:
 	([ ! -x deploy-local.sh ] || ./deploy-local.sh)
 
-dev: deploy-init deploy-css deploy-rnnoise-binary deploy-lib-jitsi-meet deploy-libflac
-	$(WEBPACK_DEV_SERVER) --middleware
+dev: deploy-init deploy-css deploy-rnnoise-binary deploy-dev-lib-jitsi-meet deploy-libflac
+	$(WEBPACK_DEV_SERVER) --progress
 
 chrome:
 	$(BROWSER) --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-debug
