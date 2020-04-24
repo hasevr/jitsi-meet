@@ -3,6 +3,9 @@
 
 import { StateListenerRegistry } from '../../../react/features/base/redux';
 
+const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)
+
+
 const yRotationToVector = degrees => {
     const radians = degrees * (Math.PI / 180);
 
@@ -72,6 +75,13 @@ class NodesManager {
         source.connect(gain)
         gain.connect(panner)
         panner.connect(this.audioContext.destination)
+
+        if (isChrome) { // NOTE Chorme would not work if not connect stream to audio tag
+            const a = new Audio()
+
+            a.muted = true
+            a.srcObject = stream
+        }
     }
 
     removeSourceNode(id) {
