@@ -540,6 +540,7 @@ export default class RemoteVideo extends SmallVideo {
         } else {
             this.setAudioStream(stream);
 
+
             // If the remote video menu was created before the audio stream was
             // attached we need to update the menu in order to show the volume
             // slider.

@@ -1103,9 +1103,13 @@ class Toolbox extends Component<Props, State> {
                         text = { t('toolbar.invite') } />
                 );
             case 'tileview':
-                return <TileViewButton showLabel = { true } />;
+                return (<TileViewButton
+                    key = 'tileview'
+                    showLabel = { true } />);
             case 'mapview':
-                return <MapViewButton showLabel = { true } />;
+                return (<MapViewButton
+                    key = 'mapview'
+                    showLabel = { true } />);
             case 'localrecording':
                 return (
                     <OverflowMenuItem
