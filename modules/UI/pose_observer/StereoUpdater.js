@@ -34,19 +34,13 @@ class NodesManager {
         this.pannerNodes = {}
     }
 
-    setGain(id, gain) {
-        this.gainNodes[id].gain.value = gain
-    }
-
-    addSourceNode(id, stream) {
-        console.log('add source node', id)
-        if (this.sourceNodes[id]) {
-            console.error(`source node of participant-${id} already exists`)
+    initParticipant(id) {
+        console.log('init participant', id)
+        if (this.gainNodes[id] || this.pannerNodes[id]) {
+            console.error(`gain node or panner node of participant-${id} already exists`)
 
             return
         }
-
-        const source = this.audioContext.createMediaStreamSource(stream)
         const gain = this.audioContext.createGain()
         const panner = this.audioContext.createPanner()
 
@@ -68,13 +62,29 @@ class NodesManager {
         panner.positionY.value = 0
         panner.positionZ.value = 0
 
-        this.sourceNodes[id] = source
         this.gainNodes[id] = gain
         this.pannerNodes[id] = panner
 
-        source.connect(gain)
         gain.connect(panner)
         panner.connect(this.audioContext.destination)
+    }
+
+    setGain(id, gain) {
+        this.gainNodes[id].gain.value = gain
+    }
+
+    addSourceNode(id, stream) {
+        if (this.sourceNodes[id]) {
+            console.error(`source node of participant-${id} already exists`)
+
+            return
+        }
+
+        const source = this.audioContext.createMediaStreamSource(stream)
+
+        this.sourceNodes[id] = source
+
+        source.connect(this.gainNodes[id])
 
         if (isChrome) { // NOTE Chorme would not work if not connect stream to audio tag
             const a = new Audio()
@@ -84,7 +94,8 @@ class NodesManager {
         }
     }
 
-    removeSourceNode(id) {
+    removeParticipant(id) {
+        console.log('remove source node', id)
         this.sourceNodes[id].disconnect()
         this.gainNodes[id].disconnect()
         this.pannerNodes[id].disconnect()
@@ -95,6 +106,7 @@ class NodesManager {
     }
 
     updatePannerNode(id, listenerPose, speakerPose) {
+        console.log('update panner node', id)
         const panner = this.pannerNodes[id]
 
         if (!panner) {
@@ -113,8 +125,6 @@ class NodesManager {
         const orientationRC = yRotationToVector(speakerPose.orientation - listenerPose.orientation)
 
         const node = this.pannerNodes[id]
-
-        console.log(positionRC, orientationRC)
 
         node.setPosition(...positionRC)
         node.setOrientation(...orientationRC)
@@ -140,13 +150,18 @@ function selectorFactory(remoteVideo) {
 
 function listenerFactory(remoteVideo) {
     return selection => {
+        if (selection[0] === undefined || selection[1] === undefined) {
+            return
+        }
+
         nodesManager.updatePannerNode(remoteVideo.id, selection[0].pose, selection[1].pose)
-        console.log(`set stereo of ${remoteVideo.id}`)
     }
 }
 
 export function bindStereo(remoteVideo) {
     console.log('bindStereo')
+
+    nodesManager.initParticipant(remoteVideo.id)
 
     remoteVideo.setAudioVolume = volume => {
         nodesManager.setGain(remoteVideo.id, volume)
@@ -164,6 +179,6 @@ export function bindStereo(remoteVideo) {
 
     return () => {
         disposer()
-        nodesManager.removeSourceNode(remoteVideo.id)
+        nodesManager.removeParticipant(remoteVideo.id)
     }
 }
