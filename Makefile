@@ -93,7 +93,10 @@ deploy-local:
 	([ ! -x deploy-local.sh ] || ./deploy-local.sh)
 
 dev: deploy-init deploy-css deploy-rnnoise-binary deploy-lib-jitsi-meet deploy-libflac
-	$(WEBPACK_DEV_SERVER) --middleware
+	$(WEBPACK_DEV_SERVER) --middleware --progress
+
+dev-bug: deploy-init deploy-css deploy-rnnoise-binary deploy-dev-lib-jitsi-meet deploy-libflac
+	$(WEBPACK_DEV_SERVER) --progress
 
 chrome:
 	$(BROWSER) --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-debug
