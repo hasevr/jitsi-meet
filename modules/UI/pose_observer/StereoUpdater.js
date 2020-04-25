@@ -73,11 +73,10 @@ class NodesManager {
         this.gainNodes[id].gain.value = gain
     }
 
-    addSourceNode(id, stream) {
+    updateSourceNode(id, stream) {
         if (this.sourceNodes[id]) {
-            console.error(`source node of participant-${id} already exists`)
-
-            return
+            console.info(`source node of participant-${id} already exists, update source`)
+            this.sourceNodes[id].disconnect()
         }
 
         const source = this.audioContext.createMediaStreamSource(stream)
@@ -169,7 +168,7 @@ export function bindStereo(remoteVideo) {
     remoteVideo.setAudioStream = track => {
         window.track = track
         window.mediaStream = track.getOriginalStream()
-        nodesManager.addSourceNode(remoteVideo.id, track.getOriginalStream())
+        nodesManager.updateSourceNode(remoteVideo.id, track.getOriginalStream())
     }
 
     const disposer = StateListenerRegistry.register(
