@@ -9,7 +9,8 @@ import {
     remotePoseUpdated,
     localPoseUpdated,
     requestLocalPose,
-    remotePoseDeleted
+    remotePoseDeleted,
+    updateLocalId
 } from './actions';
 import {
     SET_PARTICIPANT_POSE,
@@ -22,7 +23,7 @@ import type { Pose } from './actionTypes';
 import { MiddlewareRegistry } from '../redux';
 
 import { CONFERENCE_JOINED, getCurrentConference } from '../conference';
-import { PARTICIPANT_JOINED, getLocalParticipant, PARTICIPANT_LEFT } from '../participants';
+import { PARTICIPANT_JOINED, getLocalParticipant, PARTICIPANT_LEFT, PARTICIPANT_ID_CHANGED } from '../participants';
 import { getCurrentLocalPose } from './functions';
 
 export const UPDATE_POSE_COMMAND = 'update_pose';
@@ -81,7 +82,14 @@ MiddlewareRegistry.register(store => next => action => {
 
         break;
     }
+    case PARTICIPANT_ID_CHANGED: {
+        console.log(`Local Participant ID: ${action.newValue}`);
+        store.dispatch(updateLocalId(action.newValue));
+        break;
+    }
+
     case PARTICIPANT_JOINED: {
+        // FIXME: If there is not a conference room, the local participant will not have any unique id.
         // FIXME: conference may not exist when local participant left room.
         const conference = getCurrentConference(store.getState());
 
@@ -94,7 +102,7 @@ MiddlewareRegistry.register(store => next => action => {
             store.dispatch(
                 localPoseUpdated(
                     {
-                        id: participant.id,
+                        id: 'local',
                         pose: {
                             position: [ 0, 0 ],
                             orientation: 0

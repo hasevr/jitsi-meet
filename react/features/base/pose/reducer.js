@@ -7,7 +7,8 @@ import {
     GET_ALL_PARTICIPANT_POSES,
     LOCAL_POSE_UPDATED,
     REMOTE_POSE_UPDATED,
-    REMOTE_POSE_DELETED
+    REMOTE_POSE_DELETED,
+    UPDATE_LOCAL_ID
 } from './actionTypes';
 import { ReducerRegistry, set } from '../redux';
 import type { Participant, Participants } from './actionTypes';
@@ -48,7 +49,7 @@ const DEFAULT_STATE = {
 
 const STORE_NAME = 'features/base/pose';
 
-
+// TODO: Check id.
 ReducerRegistry.register(STORE_NAME, (state: Object = DEFAULT_STATE, action) => {
     switch (action.type) {
 
@@ -114,6 +115,13 @@ ReducerRegistry.register(STORE_NAME, (state: Object = DEFAULT_STATE, action) => 
         delete newRemoteParticipants[targetId];
 
         return set(state, 'remoteParticipants', newRemoteParticipants);
+    }
+    case UPDATE_LOCAL_ID: {
+        const newLocalParticipant = { ...state.localParticipant };
+
+        newLocalParticipant.id = action.id;
+
+        return set(state, 'localParticipant', newLocalParticipant);
     }
     }
 

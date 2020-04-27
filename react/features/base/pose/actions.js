@@ -9,7 +9,8 @@ import {
     LOCAL_POSE_UPDATED,
     REMOTE_POSE_UPDATED,
     REQUEST_LOCAL_POSE,
-    REMOTE_POSE_DELETED
+    REMOTE_POSE_DELETED,
+    UPDATE_LOCAL_ID
 } from './actionTypes';
 import type { Participant } from './actionTypes';
 
@@ -96,4 +97,11 @@ export function localPoseUpdated(local: Participant) {
         type: LOCAL_POSE_UPDATED,
         participant: local
     };
+}
+
+export function updateLocalId(id: string) {
+    return {
+        type: UPDATE_LOCAL_ID,
+        id
+    }
 }
