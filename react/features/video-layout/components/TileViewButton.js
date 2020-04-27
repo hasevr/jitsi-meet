@@ -89,7 +89,7 @@ class TileViewButton<P: Props> extends AbstractButton<P, *> {
  */
 function _mapStateToProps(state) {
     return {
-        _tileViewEnabled: state['features/base/pose'].tileViewEnabled
+        _tileViewEnabled: state['features/video-layout'].tileViewEnabled
     };
 }
 

@@ -23,9 +23,8 @@ function listenerFactory(remoteVideo) {
     return selection => {
         const attenuation = calculator.getVolume(selection[0].pose, selection[1].pose)
 
-        remoteVideo.setAudioAttenuation(attenuation)
-
         console.log(`set attenuation to ${attenuation} to ${remoteVideo.id}`)
+        remoteVideo.setAudioAttenuation(attenuation)
     }
 }
 

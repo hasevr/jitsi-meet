@@ -70,7 +70,7 @@ deploy-dev-lib-jitsi-meet:
 		$(DEPLOY_DIR)
 	mv \
 		$(DEPLOY_DIR)/lib-jitsi-meet.min.js \
-		$(DEPLOY_DIR)/lib-jitsi-meet.js 
+		$(DEPLOY_DIR)/lib-jitsi-meet.js
 
 
 deploy-libflac:
@@ -100,7 +100,7 @@ dev-bug: deploy-init deploy-css deploy-rnnoise-binary deploy-dev-lib-jitsi-meet 
 
 chrome:
 	$(BROWSER) --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-debug
-	
+
 source-package:
 	mkdir -p source_package/jitsi-meet/css && \
 	cp -r *.js *.html resources/*.txt connection_optimization favicon.ico fonts images libs static sounds LICENSE lang source_package/jitsi-meet && \

@@ -52,6 +52,7 @@ export function Map(props: Props) {
             width = '100%'
             xmlns = 'http://www.w3.org/2000/svg'>
             {props.firstPersonView ? <g
+                id = 'first-person-view'
                 key = 'first-person-view'
                 transform = { `${translate} ${rotate}` } >{map}</g> : map }
         </svg>
@@ -78,7 +79,8 @@ function Participant(props: ParticipantProps) {
 
     return (
         <g
-            key = { props.participant.id }
+            id = { `participant-icon-${props.participant.id}` }
+            key = { `participant-icon-${props.participant.id}` }
             transform = { `rotate(${props.participant.pose.orientation},${center[0]},${center[1]})` }>
             <svg
                 height = { `${4 * PARTICIPANT_RADIUS}` }

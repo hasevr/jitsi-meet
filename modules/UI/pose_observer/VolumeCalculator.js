@@ -32,7 +32,7 @@ export class Linear extends BaseVolumeCalculator {
 
     getVolume(listenerPose: PoseTypes.Pose, speakerPose: PoseTypes.Pose) {
         const vec = listenerPose.position.map((val, id) => val - speakerPose.position[id]);
-        const distance = Math.max(Math.sqrt(vec.reduce((prev, val) => prev + Math.pow(val, 2))), 1);
+        const distance = Math.max(Math.sqrt(vec.reduce((prev, val) => prev + Math.pow(val, 2), 0)), 1);
 
         const volume = 1 / distance * this.multiplier;
 
