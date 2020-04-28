@@ -167,6 +167,7 @@ function listenerFactory(remoteVideo) {
         }
 
         nodesManager.updatePannerNodePose(remoteVideo.id, selection[0].pose, selection[1].pose)
+        nodesManager.updateNodeEffect(remoteVideo.id, selection[1].isOnStage ? 'stage' : 'normal')
     }
 }
 
