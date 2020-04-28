@@ -7,7 +7,8 @@ export type Pose = {
 
 export type Participant = {
     id: string,
-    pose: Pose
+    pose: Pose,
+    isOnStage: boolean,
 }
 
 export type Participants = {
@@ -23,6 +24,15 @@ export type Conference = {
     id: string,
     participants: Participants,
     terrain: Terrain
+}
+
+export type Stage = {
+    center: {
+        x: number,
+        y: number,
+    },
+    width: number,
+    height: number,
 }
 
 /**
@@ -74,3 +84,7 @@ export const REMOTE_POSE_DELETED = 'REMOTE_POSE_DELETED';
 export const REQUEST_LOCAL_POSE = 'REQUEST_LOCAL_POSE';
 
 export const UPDATE_LOCAL_ID = 'UPDATE_LOCAL_ID';
+
+export const SET_LOCAL_STAGE_STATUS = 'SET_LOCAL_STAGE_STATUS';
+
+export const SET_STAGE = 'SET_STAGE';

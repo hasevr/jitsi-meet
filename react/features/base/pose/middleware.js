@@ -10,7 +10,8 @@ import {
     localPoseUpdated,
     requestLocalPose,
     remotePoseDeleted,
-    updateLocalId
+    updateLocalId,
+    setLocalStageStatus
 } from './actions';
 import {
     SET_PARTICIPANT_POSE,
@@ -25,6 +26,7 @@ import { MiddlewareRegistry } from '../redux';
 import { CONFERENCE_JOINED, getCurrentConference } from '../conference';
 import { PARTICIPANT_JOINED, getLocalParticipant, PARTICIPANT_LEFT, PARTICIPANT_ID_CHANGED } from '../participants';
 import { getCurrentLocalPose } from './functions';
+import { isOnStage } from '../../map/components/Stage';
 
 export const UPDATE_POSE_COMMAND = 'update_pose';
 export const POSE_REQUEST_COMMAND = 'pose_request';
@@ -106,7 +108,8 @@ MiddlewareRegistry.register(store => next => action => {
                         pose: {
                             position: [ 0, 0 ],
                             orientation: 0
-                        }
+                        },
+                        isOnStage: false
                     }
                 )
             );
@@ -118,7 +121,8 @@ MiddlewareRegistry.register(store => next => action => {
                         pose: {
                             position: [ 0, 0 ],
                             orientation: 0
-                        }
+                        },
+                        isOnStage: false
                     }
                 )
             );
@@ -155,13 +159,24 @@ MiddlewareRegistry.register(store => next => action => {
                     positionX: localPose.pose.position[0],
                     positionY: localPose.pose.position[1],
                     orientation: localPose.pose.orientation,
-                    test: true
+                    isOnStage: localPose.isOnStage
                 }
             }
         );
 
         break;
     }
+
+    // case LOCAL_POSE_UPDATED: {
+    //     const { stage } = store.getState()['features/base/pose'];
+    //     const newLocal = action.participant;
+    //     const result = isOnStage({x: newLocal.pose.position[0], y: newLocal.pose.position[1]}, stage);
+
+    //     console.log(`Update stage: ${result? 'true' : 'false'}`);
+
+    //     store.dispatch(setLocalStageStatus(result));
+    //     break;
+    // }
 
         // case SET_PARTICIPANT_POSE:
             // Set local participant to a new pose.
@@ -182,7 +197,8 @@ function _onRemotePoseUpdated(attributes, store) {
         pose: {
             position: [ parseFloat(attributes.positionX), parseFloat(attributes.positionY) ],
             orientation: parseFloat(attributes.orientation)
-        }
+        },
+        isOnStage: attributes.isOnStage === 'true'
     };
 
     store.dispatch(remotePoseUpdated(remote));

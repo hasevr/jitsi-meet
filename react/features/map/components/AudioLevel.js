@@ -15,13 +15,13 @@ type Props = {
 
 class AudioLevelIndicator extends Component<Props> {
     render() {
-        console.log('render audio level indicator');
+        // console.log('render audio level indicator');
 
         return (
             <defs>
                 <filter id = { `${this.props.name}-blur` }>
                     <feDropShadow
-                        stdDeviation = { 0.2 }
+                        stdDeviation = { 0.4 }
                         in = 'SourceGraphic'
                         dx = { 0 }
                         dy = { 0 }

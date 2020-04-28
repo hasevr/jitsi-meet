@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 
 import { Avatar } from '../../base/avatar';
 import AudioLevelIndicator from './AudioLevel';
+import Stage from './Stage';
 
 const PARTICIPANT_RADIUS = 2.5
 
@@ -47,12 +48,21 @@ export function Map(props: Props) {
     const translate = `translate(${(props.terrain.width / 2) - props.localParticipant.pose.position[0]},${(props.terrain.height / 2) - props.localParticipant.pose.position[1]})`
     const rotate = `rotate(${-props.localParticipant.pose.orientation},${props.localParticipant.pose.position[0]},${props.localParticipant.pose.position[1]})`
 
+    const stageCenter = {
+        x: props.terrain.width / 2,
+        y: props.terrain.height / 20
+    };
+
     return (
         <svg
             height = '100%'
             viewBox = { `0 0 ${props.terrain.width} ${props.terrain.height}` }
             width = '100%'
             xmlns = 'http://www.w3.org/2000/svg'>
+            <Stage
+                height = { props.terrain.height / 5 }
+                width = { props.terrain.width / 2 }
+                center = { stageCenter } />
             {props.firstPersonView ? <g
                 id = 'first-person-view'
                 key = 'first-person-view'

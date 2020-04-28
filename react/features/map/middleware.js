@@ -6,6 +6,7 @@ import { UPDATE_AUDIO_LEVEL } from './actionTypes';
 import { MiddlewareRegistry } from '../base/redux';
 import { CONFERENCE_JOINED, getCurrentConference } from '../base/conference';
 import { JitsiConferenceEvents } from '../base/lib-jitsi-meet';
+import { LOCAL_POSE_UPDATED, setLocalStageStatus } from '../base/pose';
 
 MiddlewareRegistry.register(store => next => action => {
     switch (action.type) {

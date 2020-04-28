@@ -8,10 +8,12 @@ import {
     LOCAL_POSE_UPDATED,
     REMOTE_POSE_UPDATED,
     REMOTE_POSE_DELETED,
-    UPDATE_LOCAL_ID
+    UPDATE_LOCAL_ID,
+    SET_LOCAL_STAGE_STATUS,
+    SET_STAGE
 } from './actionTypes';
 import { ReducerRegistry, set } from '../redux';
-import type { Participant, Participants } from './actionTypes';
+import type { Participant, Participants, Stage } from './actionTypes';
 
 type PoseStates = 'NotReady' | 'Fetching' | 'Finished';
 
@@ -39,9 +41,23 @@ const DEFAULT_STATE = {
         pose: {
             position: [ 0, 0 ],
             orientation: 0
-        }
+        },
+        isOnStage: false
     },
     terrain: {
+        width: 100,
+        height: 100
+    },
+
+    /**
+     * @public
+     * @type {Stage}
+     */
+    stage: {
+        center: {
+            x: 50,
+            y: 50
+        },
         width: 100,
         height: 100
     }
@@ -122,6 +138,20 @@ ReducerRegistry.register(STORE_NAME, (state: Object = DEFAULT_STATE, action) => 
         newLocalParticipant.id = action.id;
 
         return set(state, 'localParticipant', newLocalParticipant);
+    }
+    case SET_LOCAL_STAGE_STATUS: {
+        const newLocalParticipant = { ...state.localParticipant };
+
+        newLocalParticipant.isOnStage = action.isOnStage;
+
+        console.log('reduce SET_LOCAL_STAGE_STATUS');
+
+        return set(state, 'localParticipant', newLocalParticipant);
+    }
+    case SET_STAGE: {
+        const newStage = { ...action.stage };
+
+        return set(state, 'stage', newStage);
     }
     }
 

@@ -10,9 +10,11 @@ import {
     REMOTE_POSE_UPDATED,
     REQUEST_LOCAL_POSE,
     REMOTE_POSE_DELETED,
-    UPDATE_LOCAL_ID
+    UPDATE_LOCAL_ID,
+    SET_LOCAL_STAGE_STATUS,
+    SET_STAGE
 } from './actionTypes';
-import type { Participant } from './actionTypes';
+import type { Participant, Stage } from './actionTypes';
 
 
 /**
@@ -103,5 +105,19 @@ export function updateLocalId(id: string) {
     return {
         type: UPDATE_LOCAL_ID,
         id
+    };
+}
+
+export function setLocalStageStatus(isOnStage: boolean) {
+    return {
+        type: SET_LOCAL_STAGE_STATUS,
+        isOnStage
+    };
+}
+
+export function setStage(stage: Stage) {
+    return {
+        type: SET_STAGE,
+        stage
     }
 }
