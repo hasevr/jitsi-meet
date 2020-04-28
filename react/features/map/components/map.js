@@ -1,11 +1,13 @@
 // @flow
-/* eslint-disable semi, require-jsdoc, no-unused-vars, valid-jsdoc, react/no-multi-comp, new-cap, react-native/no-inline-styles, max-len */
+/* eslint-disable semi, require-jsdoc, no-unused-vars, valid-jsdoc, react/no-multi-comp, new-cap, react-native/no-inline-styles,
+max-len, react/jsx-sort-props */
 
 import React, { Components } from 'react';
 import * as PoseTypes from '../../../../modules/pose/types';
 import { Provider } from 'react-redux';
 
 import { Avatar } from '../../base/avatar';
+import AudioLevelIndicator from './AudioLevel';
 
 const PARTICIPANT_RADIUS = 2.5
 
@@ -82,12 +84,16 @@ function Participant(props: ParticipantProps) {
             id = { `participant-icon-${props.participant.id}` }
             key = { `participant-icon-${props.participant.id}` }
             transform = { `rotate(${props.participant.pose.orientation},${center[0]},${center[1]})` }>
+            <AudioLevelIndicator
+                name = { props.participant.id }
+                color = { props.color }
+                audioLevel = { 0 } />
             <svg
                 height = { `${4 * PARTICIPANT_RADIUS}` }
-                viewBox = '0 0 4 4'
+                viewBox = '0 0 5 5'
                 width = { `${4 * PARTICIPANT_RADIUS}` }
                 x = { `${center[0] - (2 * PARTICIPANT_RADIUS)}` }
-                y = { `${center[1] - (2 * PARTICIPANT_RADIUS)}` }>
+                y = { `${center[1] - (2 * PARTICIPANT_RADIUS)}` } >
                 <polygon
                     fill = { props.color }
                     points = { trianglePoints.map(point => `${point[0]},${point[1]}`).join(' ') } />
@@ -95,7 +101,8 @@ function Participant(props: ParticipantProps) {
                     cx = '2'
                     cy = '2'
                     fill = 'black'
-                    r = '1' />
+                    r = '1'
+                    filter = { `url(#${props.participant.id}-blur)` } />
                 <AvatarObject
                     participant = { props.participant }
                     radius = { 1 }

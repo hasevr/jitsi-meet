@@ -1,14 +1,15 @@
 // @flow
 
-import { ReducerRegistry } from '../base/redux';
+import { ReducerRegistry, set } from '../base/redux';
 import { PersistenceRegistry } from '../base/storage';
 
 import {
-    SET_MAP_VIEW
+    SET_MAP_VIEW, UPDATE_AUDIO_LEVEL
 } from './actionTypes';
 
 const DEFAULT_STATE = {
-    mapViewEnabled: true
+    mapViewEnabled: true,
+    audioLevelCollection: {}
 };
 
 const STORE_NAME = 'features/map';
@@ -24,6 +25,18 @@ ReducerRegistry.register(STORE_NAME, (state = DEFAULT_STATE, action) => {
             ...state,
             mapViewEnabled: action.enabled
         };
+    }
+    case UPDATE_AUDIO_LEVEL: {
+        let newAudioLevelCollection = { ...state.audioLevelCollection };
+
+        if (newAudioLevelCollection === undefined) {
+            newAudioLevelCollection = {};
+        }
+
+        newAudioLevelCollection[action.id] = action.level;
+        console.log(`ID[${action.id}] - AudioLv = ${action.level}`);
+
+        return set(state, 'audioLevelCollection', newAudioLevelCollection);
     }
     }
 
