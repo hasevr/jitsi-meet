@@ -73,7 +73,7 @@ export function isOnStage(point: {x: number, y: number}, rect: {center: {x: numb
 function _mapStateToProps(state, ownProps: Props) {
     const { localParticipant } = state['features/base/pose'];
 
-    console.log(`Show current on stage: ${localParticipant.isOnStage}`);
+    // console.log(`Show current on stage: ${localParticipant.isOnStage}`);
 
     return {
         _color: localParticipant.isOnStage ? '#FFC300' : '#FF5733'

@@ -43,7 +43,7 @@ class InteractiveMap extends Component<Props> {
         localParticipant.pose = newPose;
         localParticipant.isOnStage = result;
 
-        console.log(`Update stage: ${result ? 'true' : 'false'}`);
+        // console.log(`Update stage: ${result ? 'true' : 'false'}`);
 
         // this.props.dispatch(setLocalStageStatus(result));
         this.props.dispatch(localPoseUpdated(localParticipant));
