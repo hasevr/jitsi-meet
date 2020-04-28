@@ -5,8 +5,10 @@ import React, { Component } from 'react';
 import { Map } from './map'
 import { ParticipantController } from './keyboard'
 import { connect } from '../../base/redux';
-import { localPoseUpdated } from '../../base/pose';
+import { localPoseUpdated, setLocalStageStatus } from '../../base/pose';
+import type { Stage } from '../../base/pose';
 import MapViewButton from './MapViewButton';
+import { isOnStage } from './Stage';
 
 type Props = {
     terrain: PoseTypes.Terrain,
@@ -17,11 +19,13 @@ type Props = {
     updatePose: Function,
     dispatch: Function,
     hide: boolean,
-    firstPersonView: boolean
+    firstPersonView: boolean,
+    stage: Stage
 };
 
 class InteractiveMap extends Component<Props> {
     _onUpdatePose: () => void;
+    _isValidPose: () => boolean;
 
     constructor(props: Props) {
         super(props);
@@ -31,8 +35,17 @@ class InteractiveMap extends Component<Props> {
     }
     _onUpdatePose(newPose: PoseTypes.Pose) {
         const localParticipant: PoseTypes.Participant = Object.assign({}, this.props.localParticipant);
+        const { position } = newPose;
+        const currPosition = { x: position[0],
+            y: position[1] };
+        const result = isOnStage(currPosition, this.props.stage);
 
         localParticipant.pose = newPose;
+        localParticipant.isOnStage = result;
+
+        console.log(`Update stage: ${result ? 'true' : 'false'}`);
+
+        // this.props.dispatch(setLocalStageStatus(result));
         this.props.dispatch(localPoseUpdated(localParticipant));
     }
     _isValidPose(pose: PoseTypes.Pose) {
@@ -73,10 +86,11 @@ class InteractiveMap extends Component<Props> {
 }
 
 function _mapStateToProps(state) {
-    const { localParticipant, remoteParticipants, terrain } = state['features/base/pose'];
+    const { localParticipant, remoteParticipants, terrain, stage } = state['features/base/pose'];
     const { mapViewEnabled } = state['features/map']
 
     return {
+        stage,
         terrain,
         localParticipant,
         remoteParticipants,
