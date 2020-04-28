@@ -332,6 +332,7 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
     _getAlwaysOnTopResources() {
         const iframeWindow = this._frame.contentWindow;
         const iframeDocument = iframeWindow.document;
+
         let baseURL = '';
         const base = iframeDocument.querySelector('base');
 

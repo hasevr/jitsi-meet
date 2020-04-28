@@ -239,12 +239,14 @@ function _synthesizeIPv6Addresses(sdp) {
  */
 function _synthesizeIPv6Addresses0(sessionDescription) {
     const sdp = sessionDescription.sdp;
+
     let start = 0;
     const lines = [];
     const ips = new Map();
 
     do {
         const end = sdp.indexOf('\r\n', start);
+
         let line;
 
         if (end === -1) {
@@ -262,6 +264,7 @@ function _synthesizeIPv6Addresses0(sessionDescription) {
 
             if (candidate.length >= 10 && candidate[6] === 'typ') {
                 const ip4s = [ candidate[4] ];
+
                 let abort = false;
 
                 for (let i = 8; i < candidate.length; ++i) {
@@ -341,6 +344,7 @@ function _synthesizeIPv6Addresses1(sessionDescription, ips, lines) {
 
         if (typeof candidate !== 'string') {
             let ip4 = candidate[4];
+
             let ip6 = ips.get(ip4);
 
             ip6 && (candidate[4] = ip6);

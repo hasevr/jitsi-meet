@@ -67,6 +67,7 @@ function _appWillMount({ dispatch, getState }, next, action) {
 
     for (const { conference } of getState()['features/recent-list']) {
         const uri = parseURIString(conference);
+
         let host;
 
         uri && (host = uri.host) && knownDomains.push(host);

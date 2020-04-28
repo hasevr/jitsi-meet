@@ -64,6 +64,7 @@ class PersistenceRegistry {
         // legacy
         if (Object.keys(filteredPersistedState).length === 0) {
             const { localStorage } = window;
+
             let persistedState = localStorage.getItem(PERSISTED_STATE_NAME);
 
             if (persistedState) {

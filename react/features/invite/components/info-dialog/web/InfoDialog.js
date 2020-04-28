@@ -513,6 +513,7 @@ class InfoDialog extends Component<Props, State> {
      */
     _renderPasswordAction() {
         const { t } = this.props;
+
         let className, onClick, textKey;
 
 

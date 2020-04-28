@@ -138,6 +138,7 @@ function _updateAudioMode({ getState }, next, action) {
     const state = getState();
     const conference = getCurrentConference(state);
     const { enabled: audioOnly } = state['features/base/audio-only'];
+
     let mode;
 
     if (conference) {

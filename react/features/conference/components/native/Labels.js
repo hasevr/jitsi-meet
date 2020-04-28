@@ -271,6 +271,7 @@ class Labels extends AbstractLabels<Props, State> {
                 containerLayout,
                 labelLayouts
             } = this.state;
+
             let { visibleExpandedLabel } = this.state;
 
             if (containerLayout) {

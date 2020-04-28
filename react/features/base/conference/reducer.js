@@ -161,6 +161,7 @@ function _conferenceFailed(state, { conference, error }) {
     }
 
     let authRequired;
+
     let passwordRequired;
 
     switch (error.name) {

@@ -340,6 +340,7 @@ export function trackAdded(track) {
         // participantId
         const local = track.isLocal();
         const mediaType = track.getType();
+
         let isReceivingData, noDataFromSourceNotificationInfo, participantId;
 
         if (local) {

@@ -208,6 +208,7 @@ class WelcomePage extends AbstractWelcomePage {
      */
     _renderJoinButton() {
         const { t } = this.props;
+
         let children;
 
 

@@ -35,6 +35,7 @@ const eventEmitter = new EventEmitter();
 UI.eventEmitter = eventEmitter;
 
 let etherpadManager;
+
 let sharedVideoManager;
 
 const UIListeners = new Map([
@@ -460,6 +461,7 @@ UI.refreshAvatarDisplay = function(id) {
  */
 UI.notifyConnectionFailed = function(stropheErrorMsg) {
     let descriptionKey;
+
     let descriptionArguments;
 
     if (stropheErrorMsg) {

@@ -151,6 +151,7 @@ export default class AbstractAddPeopleDialog<P: Props, S: State>
                     });
                 } else if (!_callFlowsEnabled) {
                     const invitedCount = invitees.length;
+
                     let notificationProps;
 
                     if (invitedCount >= 3) {

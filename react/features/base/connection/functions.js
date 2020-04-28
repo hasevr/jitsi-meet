@@ -13,6 +13,7 @@ import { toURLString } from '../util';
  */
 export function getCurrentConferenceUrl(stateful: Function | Object) {
     const state = toState(stateful);
+
     let currentUrl;
 
     if (isInviteURLReady(state)) {
@@ -40,6 +41,7 @@ export function getCurrentConferenceUrl(stateful: Function | Object) {
  */
 export function getInviteURL(stateOrGetState: Function | Object): string {
     const state = toState(stateOrGetState);
+
     let locationURL
         = state instanceof URL
             ? state

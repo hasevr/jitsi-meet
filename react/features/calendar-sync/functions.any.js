@@ -107,6 +107,7 @@ export function _updateCalendarEntries(events: Array<Object>) {
  */
 function _checkPattern(str, positivePattern, negativePattern) {
     const positiveRegExp = new RegExp(positivePattern, 'gi');
+
     let positiveMatch = positiveRegExp.exec(str);
 
     while (positiveMatch !== null) {

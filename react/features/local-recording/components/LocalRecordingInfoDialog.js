@@ -241,6 +241,7 @@ class LocalRecordingInfoDialog extends Component<Props, State> {
      */
     _renderStatsLine(lineKey, id) {
         const { stats } = this.props;
+
         let statusClass = 'localrec-participant-stats-item__status-dot ';
 
         statusClass += stats[id].recordingStats

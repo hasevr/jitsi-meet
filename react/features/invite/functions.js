@@ -160,6 +160,7 @@ export function getInviteResultsForQuery(
 
 
     let hasCountryCode = text.startsWith('+');
+
     let phoneNumberPromise;
 
     // Phone numbers are handled a specially to enable both cases of restricting
@@ -412,6 +413,7 @@ export function getShareInfoText(
 
     if (includeDialInfo) {
         const { room } = parseURIString(inviteUrl);
+
         let numbersPromise;
 
         if (state['features/invite'].numbers

@@ -248,6 +248,7 @@ class AbstractStartRecordingDialog extends Component<Props, State> {
      */
     _onSubmit() {
         const { _autoCaptionOnRecord, _conference, _isDropboxEnabled, _token, dispatch } = this.props;
+
         let appData;
         const attributes = {};
 

@@ -122,7 +122,9 @@ class AudioSettingsContent extends Component<Props, State> {
         const { deviceId, label } = data;
         const key = `me-${index}`;
         const isSelected = deviceId === this.props.currentMicDeviceId;
+
         let jitsiTrack = null;
+
         let hasError = false;
 
         if (isSelected) {

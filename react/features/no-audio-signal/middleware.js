@@ -83,7 +83,9 @@ async function _handleNoAudioSignalNotification({ dispatch, getState }, action) 
 
 
         let descriptionKey = 'toolbar.noAudioSignalDesc';
+
         let customActionNameKey;
+
         let customActionHandler;
 
         // In case the detector picked up a device show a notification with a device suggestion

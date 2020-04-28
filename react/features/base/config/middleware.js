@@ -66,6 +66,7 @@ function _appWillMount(store, next, action) {
                 if (key.startsWith(prefix)
                         && (baseURL = key.substring(prefix.length))) {
                     const uri = parseURIString(baseURL);
+
                     let host;
 
                     uri && (host = uri.host) && knownDomains.push(host);

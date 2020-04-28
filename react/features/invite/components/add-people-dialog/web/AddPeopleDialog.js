@@ -138,10 +138,15 @@ class AddPeopleDialog extends AbstractAddPeopleDialog<Props, State> {
             _footerTextEnabled,
             t
         } = this.props;
+
         let isMultiSelectDisabled = this.state.addToCallInProgress || false;
+
         let placeholder;
+
         let loadingMessage;
+
         let noMatches;
+
         let footerText;
 
         if (_addPeopleEnabled && _dialOutEnabled) {
@@ -459,6 +464,7 @@ function _mapStateToProps(state) {
     const {
         enableFeaturesBasedOnToken
     } = state['features/base/config'];
+
     let footerTextEnabled = false;
 
     if (enableFeaturesBasedOnToken) {

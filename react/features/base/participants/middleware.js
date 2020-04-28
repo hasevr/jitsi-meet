@@ -163,6 +163,7 @@ StateListenerRegistry.register(
     /* listener */ ({ leaving }, { dispatch, getState }) => {
         const state = getState();
         const localParticipant = getLocalParticipant(state);
+
         let id;
 
         if (!localParticipant

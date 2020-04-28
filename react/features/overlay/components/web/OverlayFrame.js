@@ -68,6 +68,7 @@ export default class OverlayFrame extends Component<Props, State> {
     render() {
         let containerClass = this.props.isLightOverlay
             ? 'overlay__container-light' : 'overlay__container';
+
         let contentClass = 'overlay__content';
 
         if (this.state.filmstripOnly) {

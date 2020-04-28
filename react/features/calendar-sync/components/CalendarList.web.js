@@ -104,7 +104,9 @@ class CalendarList extends AbstractPage<Props> {
         const { _calendarError = {}, t } = this.props;
 
         let errorMessageKey = 'calendarSync.error.generic';
+
         let showRefreshButton = true;
+
         let showSettingsButton = true;
 
         if (_calendarError.error === ERRORS.GOOGLE_APP_MISCONFIGURED) {

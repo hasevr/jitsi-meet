@@ -276,6 +276,7 @@ export default class SlidingView extends PureComponent<Props, State> {
 
             const { positionOffset } = this.state;
             const { position } = this.props;
+
             let toValue = positionOffset;
 
             if (position === 'bottom' || position === 'right') {

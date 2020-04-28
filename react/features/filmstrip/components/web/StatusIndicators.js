@@ -62,6 +62,7 @@ class StatusIndicators extends Component<Props> {
             showAudioMutedIndicator,
             showVideoMutedIndicator
         } = this.props;
+
         let tooltipPosition;
 
         switch (_currentLayout) {

@@ -293,6 +293,7 @@ class ConnectionIndicator extends AbstractConnectionIndicator<Props, State> {
         }
 
         let iconWidth;
+
         let emptyIconWrapperClassName = 'connection_empty';
 
         if (this.props.connectionStatus

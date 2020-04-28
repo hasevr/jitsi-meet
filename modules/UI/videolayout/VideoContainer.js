@@ -41,7 +41,9 @@ function computeDesktopVideoSize( // eslint-disable-line max-params
     }
 
     const aspectRatio = videoWidth / videoHeight;
+
     let availableWidth = Math.max(videoWidth, videoSpaceWidth);
+
     let availableHeight = Math.max(videoHeight, videoSpaceHeight);
 
     if (interfaceConfig.VERTICAL_FILMSTRIP) {

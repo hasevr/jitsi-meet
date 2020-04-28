@@ -65,6 +65,7 @@ class PictureInPictureButton extends AbstractButton<Props, *> {
  */
 function _mapStateToProps(state): Object {
     const flag = Boolean(getFeatureFlag(state, PIP_ENABLED));
+
     let enabled = flag;
 
     // Override flag for Android < 26, PiP was introduced in Oreo.

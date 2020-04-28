@@ -132,6 +132,7 @@ const logger = require('jitsi-meet-logger').getLogger(__filename);
 const eventEmitter = new EventEmitter();
 
 let room;
+
 let connection;
 
 /**
@@ -496,6 +497,7 @@ export default {
             videoOnlyError;
         const initialDevices = [ 'audio' ];
         const requestedAudio = true;
+
         let requestedVideo = false;
 
         // Always get a handle on the audio input device so that we have statistics even if the user joins the
@@ -1590,6 +1592,7 @@ export default {
      */
     _createDesktopTrack(options = {}) {
         let externalInstallation = false;
+
         let DSExternalInstallationInProgress = false;
         const didHaveVideo = !this.isLocalVideoMuted();
 
@@ -1729,7 +1732,9 @@ export default {
         if (!this.localPresenterVideo && !mute) {
             let { aspectRatio, height } = this.localVideo.track.getSettings();
             const { width } = this.localVideo.track.getSettings();
+
             let desktopResizeConstraints = {};
+
             let resizeDesktopStream = false;
             const DESKTOP_STREAM_CAP = 720;
 
@@ -1769,6 +1774,7 @@ export default {
                 height = this.localVideo.track.getSettings().height ?? DESKTOP_STREAM_CAP;
             }
             const defaultCamera = getUserSelectedCameraDeviceId(APP.store.getState());
+
             let effect;
 
             try {
@@ -1909,6 +1915,7 @@ export default {
         // JitsiTrackErrors.GENERAL
         // and any other
         let descriptionKey;
+
         let titleKey;
 
         if (error.name === JitsiTrackErrors.PERMISSION_DENIED) {
@@ -2656,7 +2663,9 @@ export default {
         // Let's handle unknown/non-preferred devices
         const newAvailDevices
             = APP.store.getState()['features/base/devices'].availableDevices;
+
         let newAudioDevices = [];
+
         let oldAudioDevices = [];
 
         if (typeof newDevices.audiooutput === 'undefined') {

@@ -69,6 +69,7 @@ export function addPendingDeviceRequest(request) {
 export function configureInitialDevices() {
     return (dispatch, getState) => {
         const deviceLabels = getDevicesFromURL(getState());
+
         let updateSettingsPromise;
 
         if (deviceLabels) {

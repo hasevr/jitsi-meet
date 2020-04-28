@@ -241,6 +241,7 @@ export function updateCalendarEvent(id: string, calendarId: string): Function {
 
         const { locationURL } = getState()['features/base/connection'];
         const newRoomName = generateRoomWithoutSeparator();
+
         let href = locationURL.href;
 
         href.endsWith('/') || (href += '/');

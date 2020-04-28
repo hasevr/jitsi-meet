@@ -33,6 +33,7 @@ export default class LoadingIndicator extends Component<Props> {
      */
     render() {
         const { color = ColorPalette.white } = this.props;
+
         let { size = 'large' } = this.props;
 
         if (size === 'medium') {

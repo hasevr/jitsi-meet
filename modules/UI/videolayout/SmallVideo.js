@@ -525,6 +525,7 @@ export default class SmallVideo {
             classNames.split(' ').filter(name => name.startsWith('display-')));
 
         const oldDisplayMode = this.displayMode;
+
         let displayModeString = '';
 
         const displayModeInput = this.computeDisplayModeInput();
@@ -754,6 +755,7 @@ export default class SmallVideo {
         const state = APP.store.getState();
         const currentLayout = getCurrentLayout(state);
         const participantCount = getParticipantCount(state);
+
         let statsPopoverPosition, tooltipPosition;
 
         if (currentLayout === LAYOUTS.TILE_VIEW) {

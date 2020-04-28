@@ -119,7 +119,9 @@ function _electParticipantInLargeVideo(state) {
     // 1. If a participant is pinned, they will be shown in the LargeVideo (
     //    regardless of whether they are local or remote).
     const participants = state['features/base/participants'];
+
     let participant = participants.find(p => p.pinned);
+
     let id = participant && participant.id;
 
     if (!id) {

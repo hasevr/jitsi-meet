@@ -209,6 +209,7 @@ function initCommands() {
                 invite(invitees, true))
                 .then(failedInvitees => {
                     let error;
+
                     let result;
 
                     if (failedInvitees.length) {

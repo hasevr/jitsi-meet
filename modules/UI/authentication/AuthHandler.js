@@ -12,6 +12,7 @@ import LoginDialog from './LoginDialog';
 const logger = require('jitsi-meet-logger').getLogger(__filename);
 
 let externalAuthWindow;
+
 let authRequiredDialog;
 
 const isTokenAuthEnabled

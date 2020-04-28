@@ -174,6 +174,7 @@ function _upgradeRoleFinished(
         thenableWithCancel,
         progressOrError: number | Object) {
     let error;
+
     let progress;
 
     if (typeof progressOrError === 'number') {

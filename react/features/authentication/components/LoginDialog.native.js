@@ -204,6 +204,7 @@ class LoginDialog extends Component<Props, State> {
         } = this.props;
 
         let messageKey;
+
         let messageIsError = false;
         const messageOptions = {};
 
@@ -308,6 +309,7 @@ class LoginDialog extends Component<Props, State> {
         const { _conference: conference, dispatch } = this.props;
         const { password, username } = this.state;
         const jid = toJid(username, this.props._configHosts);
+
         let r;
 
         // If there's a conference it means that the connection has succeeded,

@@ -103,6 +103,7 @@ export default class ToolboxButtonWithIcon extends Component<Props, State> {
         } = this.props;
 
         const iconProps = {};
+
         let size = 9;
 
         if (iconDisabled) {

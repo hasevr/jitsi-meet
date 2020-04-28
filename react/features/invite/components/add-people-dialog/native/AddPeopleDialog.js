@@ -498,6 +498,7 @@ class AddPeopleDialog extends AbstractAddPeopleDialog<Props, State> {
     _renderItem(flatListItem, index): React$Element<any> | null {
         const { item } = flatListItem;
         const { inviteItems } = this.state;
+
         let selected = false;
         const renderableItem = this._getRenderableItem(flatListItem);
 

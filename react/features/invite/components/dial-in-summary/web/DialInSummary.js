@@ -128,6 +128,7 @@ class DialInSummary extends Component<Props, State> {
      */
     render() {
         let className = '';
+
         let contents;
 
         const { conferenceID, error, loading, numbersEnabled } = this.state;
@@ -191,6 +192,7 @@ class DialInSummary extends Component<Props, State> {
         const { room } = this.props;
         const { dialInNumbersUrl, hosts } = config;
         const mucURL = hosts && hosts.muc;
+
         let URLSuffix = '';
 
         if (!dialInNumbersUrl) {

@@ -143,6 +143,7 @@ class VideoQualitySlider extends Component<Props> {
         const activeSliderOption = this._mapCurrentQualityToSliderValue();
 
         let classNames = 'video-quality-dialog';
+
         let warning = null;
 
         if (!_videoSupported) {

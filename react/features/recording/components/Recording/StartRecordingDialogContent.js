@@ -172,6 +172,7 @@ class StartRecordingDialogContent extends Component<Props> {
         } = this.props;
 
         const controlDisabled = selectedRecordingService !== RECORDING_TYPES.JITSI_REC_SERVICE;
+
         let mainContainerClasses = 'recording-header recording-header-line';
 
         if (controlDisabled) {
@@ -279,6 +280,7 @@ class StartRecordingDialogContent extends Component<Props> {
         const { _dialogStyles, _styles: styles, isTokenValid, isValidating, t } = this.props;
 
         let content = null;
+
         let switchContent = null;
 
         if (isValidating) {

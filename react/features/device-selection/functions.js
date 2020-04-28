@@ -32,9 +32,13 @@ export function getDeviceSelectionDialogProps(stateful: Object | Function) {
     const state = toState(stateful);
     const settings = state['features/base/settings'];
     const { conference } = state['features/base/conference'];
+
     let disableAudioInputChange = !JitsiMeetJS.mediaDevices.isMultipleAudioInputSupported();
+
     let selectedAudioInputId = settings.micDeviceId;
+
     let selectedAudioOutputId = getAudioOutputDeviceId();
+
     let selectedVideoInputId = settings.cameraDeviceId;
 
     // audio input change will be a problem only when we are in a
@@ -87,6 +91,7 @@ export function processExternalDeviceRequest( // eslint-disable-line max-params
     const state = getState();
     const settings = state['features/base/settings'];
     const { conference } = state['features/base/conference'];
+
     let result = true;
 
     switch (request.name) {

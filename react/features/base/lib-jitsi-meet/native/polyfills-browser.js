@@ -228,6 +228,7 @@ function _visitNode(node, callback) {
                         // Assign the resulting nodes as children of the
                         // element.
                         const documentElement = d.documentElement;
+
                         let child;
 
                         // eslint-disable-next-line no-cond-assign
@@ -247,7 +248,9 @@ function _visitNode(node, callback) {
                     get() {
                         const nodes = this.childNodes;
                         const children = [];
+
                         let i = 0;
+
                         let node = nodes[i];
 
                         while (node) {
@@ -362,6 +365,7 @@ function _visitNode(node, callback) {
 
         // react-native/version
         const { name, version } = require('react-native/package.json');
+
         let rn = name || 'react-native';
 
         version && (rn += `/${version}`);

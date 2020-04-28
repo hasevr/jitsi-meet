@@ -73,10 +73,13 @@ class RecordButton extends AbstractRecordButton<Props> {
  */
 export function _mapStateToProps(state: Object, ownProps: Props): Object {
     const abstractProps = _abstractMapStateToProps(state, ownProps);
+
     let { visible } = ownProps;
 
     const _disabledByFeatures = abstractProps.disabledByFeatures;
+
     let _disabled = false;
+
     let _fileRecordingsDisabledTooltipKey;
 
     if (!abstractProps.visible

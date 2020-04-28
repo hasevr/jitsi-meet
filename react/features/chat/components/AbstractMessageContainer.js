@@ -30,7 +30,9 @@ export default class AbstractMessageContainer<P: Props> extends PureComponent<P>
     _getMessagesGroupedBySender() {
         const messagesCount = this.props.messages.length;
         const groups = [];
+
         let currentGrouping = [];
+
         let currentGroupParticipantId;
 
         for (let i = 0; i < messagesCount; i++) {

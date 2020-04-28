@@ -1343,6 +1343,7 @@ class Toolbox extends Component<Props, State> {
  */
 function _mapStateToProps(state) {
     const { conference } = state['features/base/conference'];
+
     let { desktopSharingEnabled } = state['features/base/conference'];
     const {
         callStatsID,

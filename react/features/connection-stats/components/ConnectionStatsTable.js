@@ -261,6 +261,7 @@ class ConnectionStatsTable extends Component<Props> {
      */
     _renderRegion() {
         const { region, serverRegion, t } = this.props;
+
         let str = serverRegion;
 
         if (!serverRegion) {
@@ -339,6 +340,7 @@ class ConnectionStatsTable extends Component<Props> {
      */
     _renderPacketLoss() {
         const { packetLoss, t } = this.props;
+
         let packetLossTableData;
 
         if (packetLoss) {

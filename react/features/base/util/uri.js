@@ -206,6 +206,7 @@ export function parseStandardURIString(str: string) {
     };
 
     let regex;
+
     let match: Array<string> | null;
 
     // XXX A URI string as defined by RFC 3986 does not contain any whitespace.
@@ -328,6 +329,7 @@ export function parseURIString(uri: ?string) {
     // XXX While the components/segments of pathname are URI encoded, Jitsi Meet
     // on the client and/or server sides still don't support certain characters.
     const contextRootEndIndex = pathname.lastIndexOf('/');
+
     let room = pathname.substring(contextRootEndIndex + 1) || undefined;
 
     if (room) {
@@ -359,6 +361,7 @@ export function parseURIString(uri: ?string) {
 function _standardURIToString(thiz: ?Object) {
     // eslint-disable-next-line no-invalid-this
     const { hash, host, pathname, protocol, search } = thiz || this;
+
     let str = '';
 
     protocol && (str += protocol);

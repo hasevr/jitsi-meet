@@ -55,6 +55,7 @@ function _updateLastN({ getState }) {
     }
 
     const defaultLastN = typeof config.channelLastN === 'undefined' ? -1 : config.channelLastN;
+
     let lastN = defaultLastN;
 
     if (appState !== 'active') {

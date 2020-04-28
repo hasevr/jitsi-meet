@@ -21,6 +21,7 @@ import LocalVideo from './LocalVideo';
 import { bindStereo } from '../pose_observer/StereoUpdater';
 
 const remoteVideos = {};
+
 let localVideoThumbnail = null;
 
 let eventEmitter = null;
@@ -671,6 +672,7 @@ const VideoLayout = {
         }
 
         const currentId = largeVideo.id;
+
         let oldSmallVideo;
 
         if (currentId) {

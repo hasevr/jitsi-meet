@@ -84,7 +84,9 @@ class Watermarks extends Component<Props, State> {
         super(props);
 
         let showBrandWatermark;
+
         let showJitsiWatermark;
+
         let showJitsiWatermarkForGuests;
 
         if (interfaceConfig.filmStripOnly) {

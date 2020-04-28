@@ -49,6 +49,7 @@ export default class Container<P: Props> extends AbstractContainer<P> {
         }
 
         const onClickOrTouchFeedback = onClick || onLongPress || touchFeedback;
+
         let element
             = super._render(
                 View,

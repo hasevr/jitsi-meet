@@ -179,6 +179,7 @@ class Filmstrip extends Component <Props> {
 
         const filmstripStyle = { };
         const filmstripRemoteVideosContainerStyle = {};
+
         let remoteVideoContainerClassName = 'remote-videos-container';
 
         switch (this.props._currentLayout) {

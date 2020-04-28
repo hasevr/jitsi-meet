@@ -57,6 +57,7 @@ export function getSessionById(state: Object, id: string) {
  */
 export function getSessionStatusToShow(state: Object, mode: string): ?string {
     const recordingSessions = state['features/recording'].sessionDatas;
+
     let status;
 
     if (Array.isArray(recordingSessions)) {

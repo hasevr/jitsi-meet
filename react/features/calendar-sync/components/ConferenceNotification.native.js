@@ -229,6 +229,7 @@ class ConferenceNotification extends Component<Props, State> {
      */
     _maybeDisplayNotification() {
         const { _currentConferenceURL, _eventList } = this.props;
+
         let eventToShow;
 
         if (_eventList && _eventList.length) {

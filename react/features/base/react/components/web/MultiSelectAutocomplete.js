@@ -234,6 +234,7 @@ class MultiSelectAutocomplete extends Component<Props, State> {
     _onSelectionChange(item) {
         const existing
             = this.state.selectedItems.find(k => k.value === item.value);
+
         let selectedItems = this.state.selectedItems;
 
         if (existing) {

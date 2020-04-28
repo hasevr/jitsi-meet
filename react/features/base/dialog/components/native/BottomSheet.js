@@ -128,6 +128,7 @@ class BottomSheet extends PureComponent<Props> {
         if (verticalSwipe) {
             const direction = gestureState.vy > 0 ? 'down' : 'up';
             const { onCancel, onSwipe } = this.props;
+
             let isSwipeHandled = false;
 
             if (onSwipe) {

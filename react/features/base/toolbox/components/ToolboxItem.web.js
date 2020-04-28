@@ -37,6 +37,7 @@ export default class ToolboxItem extends AbstractToolboxItem<Props> {
         };
         const elementType = showLabel ? 'li' : 'div';
         const useTooltip = this.tooltip && this.tooltip.length > 0;
+
         let children = (
             <Fragment>
                 { this._renderIcon() }

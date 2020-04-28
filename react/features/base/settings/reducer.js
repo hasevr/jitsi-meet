@@ -125,6 +125,7 @@ function _initSettings(featureState) {
     // jibri, and remove the old settings.js values.
     const savedDisplayName = window.localStorage.getItem('displayname');
     const savedEmail = window.localStorage.getItem('email');
+
     let avatarID = _.escape(window.localStorage.getItem('avatarId'));
 
     // The helper _.escape will convert null to an empty strings. The empty

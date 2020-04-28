@@ -89,6 +89,7 @@ class CalleeInfo extends Component<Props> {
      */
     _style(...classNames: Array<?string>) {
         let className = '';
+
         let style;
 
         for (const aClassName of classNames) {

@@ -347,7 +347,9 @@ class SessionManager {
         }
 
         const output = [];
+
         let sessionStartTime = null;
+
         let currentSegment: SegmentInfo = {};
 
         /**

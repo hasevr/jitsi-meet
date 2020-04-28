@@ -274,8 +274,10 @@ function writeUTFBytes(view, offset, string) {
 function floatTo16BitPCM(output, offset, inputBuffers) {
 
     let i, j;
+
     let input, s, sampleCount;
     const bufferCount = inputBuffers.length;
+
     let o = offset;
 
     for (i = 0; i < bufferCount; ++i) {

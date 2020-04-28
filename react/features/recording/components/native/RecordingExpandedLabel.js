@@ -58,6 +58,7 @@ class RecordingExpandedLabel extends ExpandedLabel<Props> {
      */
     _getLabel() {
         const { _status, mode, t } = this.props;
+
         let postfix = 'recording', prefix = 'expandedOn'; // Default values.
 
         switch (mode) {

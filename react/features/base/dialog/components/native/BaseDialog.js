@@ -109,8 +109,11 @@ class BaseDialog<P: Props, S: State> extends AbstractDialog<P, S> {
             // Render text in <b>text</b> in bold.
             const opening = /<\s*b\s*>/gi;
             const closing = /<\s*\/\s*b\s*>/gi;
+
             let o;
+
             let c;
+
             let prevClosingLastIndex = 0;
             const r = [];
 

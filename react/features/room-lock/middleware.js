@@ -139,7 +139,9 @@ function _setPasswordFailed(store, next, action) {
         // TODO Remove this logic when displaying of error messages on web is
         // handled through react/redux.
         const { error } = action;
+
         let descriptionKey;
+
         let titleKey;
 
         if (error === JitsiConferenceErrors.PASSWORD_NOT_SUPPORTED) {

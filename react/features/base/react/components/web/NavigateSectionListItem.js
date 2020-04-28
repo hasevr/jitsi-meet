@@ -49,6 +49,7 @@ export default class NavigateSectionListItem<P: Props>
          * @type {string}
          */
         let date = '';
+
         let duration = '';
 
         if (lines[0]) {

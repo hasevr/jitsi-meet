@@ -71,6 +71,7 @@ ReducerRegistry.register(STORE_NAME,
 function _updateSessionDatas(sessionDatas, newSessionData) {
     const hasExistingSessionData = sessionDatas.find(
         sessionData => sessionData.id === newSessionData.id);
+
     let newSessionDatas;
 
     if (hasExistingSessionData) {

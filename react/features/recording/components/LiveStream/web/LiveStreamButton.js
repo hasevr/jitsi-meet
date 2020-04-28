@@ -73,10 +73,13 @@ class LiveStreamButton extends AbstractLiveStreamButton<Props> {
  */
 function _mapStateToProps(state: Object, ownProps: Props) {
     const abstractProps = _abstractMapStateToProps(state, ownProps);
+
     let { visible } = ownProps;
 
     const _disabledByFeatures = abstractProps.disabledByFeatures;
+
     let _disabled = false;
+
     let _liveStreamDisabledTooltipKey;
 
     if (!abstractProps.visible

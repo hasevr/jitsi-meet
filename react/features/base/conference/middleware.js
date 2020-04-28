@@ -371,6 +371,7 @@ function _pinParticipant({ getState }, next, action) {
     const local
         = (participantById && participantById.local)
             || (!id && pinnedParticipant && pinnedParticipant.local);
+
     let participantIdForEvent;
 
     if (local) {
@@ -471,6 +472,7 @@ function _setRoom({ dispatch, getState }, next, action) {
  */
 function _syncConferenceLocalTracksWithState({ getState }, action) {
     const conference = getCurrentConference(getState);
+
     let promise;
 
     if (conference) {

@@ -16,6 +16,7 @@ const { LogBridge } = NativeModules;
  */
 function stackToString(e) {
     let ce;
+
     let s = e.stack;
 
     if (typeof e.cause === 'function' && (ce = e.cause())) {

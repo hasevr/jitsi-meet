@@ -57,6 +57,7 @@ class NumbersList extends Component<Props> {
     _renderWithCountries(
             numbersMapping: { numbers: Array<string> } | Array<Object>) {
         const { t } = this.props;
+
         let hasFlags = false, numbers;
 
         if (Array.isArray(numbersMapping)) {

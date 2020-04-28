@@ -119,6 +119,7 @@ export default class NavigateSectionListItem extends Component<Props> {
     render() {
         const { item, slideActions } = this.props;
         const { id } = item;
+
         let right;
 
         // NOTE: The {@code Swipeout} component has an onPress prop encapsulated

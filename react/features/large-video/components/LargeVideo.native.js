@@ -94,6 +94,7 @@ class LargeVideo extends Component<Props, State> {
     _onDimensionsChanged(width: number, height: number) {
         // Get the size, rounded to the nearest even number.
         const size = 2 * Math.round(Math.min(height, width) / 2);
+
         let nextState;
 
         if (size < AVATAR_SIZE * 1.5) {

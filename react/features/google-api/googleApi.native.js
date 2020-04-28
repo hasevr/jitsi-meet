@@ -165,6 +165,7 @@ class GoogleApi {
                     // name for a nice display.
                     for (const stream of streams) {
                         const key = stream.cdn.ingestionInfo.streamName;
+
                         let title;
 
                         // Finding title from the broadcast with the same

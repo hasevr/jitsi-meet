@@ -49,6 +49,7 @@ function _appWillMount({ dispatch, getState }) {
  */
 function _setRoom({ dispatch, getState }) {
     const { locationURL } = getState()['features/base/connection'];
+
     let host;
 
     locationURL

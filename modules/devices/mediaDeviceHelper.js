@@ -160,6 +160,7 @@ export default {
             cameraDeviceId,
             micDeviceId) {
         let audioTrackError;
+
         let videoTrackError;
         const audioRequested = Boolean(micDeviceId);
         const videoRequested = Boolean(cameraDeviceId);

@@ -53,6 +53,7 @@ class AudioLevelIndicator extends Component<Props> {
                 = stretchedAudioLevel - Math.abs(distanceFromCenter);
             const cappedOpacity = Math.min(
                 1, Math.max(0, audioLevelFromCenter));
+
             let className;
 
             if (distanceFromCenter === 0) {

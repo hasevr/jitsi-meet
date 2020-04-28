@@ -173,7 +173,9 @@ export default class RemoteVideo extends SmallVideo {
         }
 
         const { controller } = APP.remoteControl;
+
         let remoteControlState = null;
+
         let onRemoteControlToggle;
 
         if (this._supportsRemoteControl
@@ -197,6 +199,7 @@ export default class RemoteVideo extends SmallVideo {
             = APP.store.getState()['features/base/config'].startSilent ? undefined : this._setAudioBaseVolume;
         const participantID = this.id;
         const currentLayout = getCurrentLayout(APP.store.getState());
+
         let remoteMenuPosition;
 
         if (currentLayout === LAYOUTS.TILE_VIEW) {

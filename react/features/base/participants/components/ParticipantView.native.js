@@ -253,7 +253,9 @@ class ParticipantView extends Component<Props> {
  */
 function _mapStateToProps(state, ownProps) {
     const { disableVideo, participantId } = ownProps;
+
     let connectionStatus;
+
     let participantName;
 
     return {

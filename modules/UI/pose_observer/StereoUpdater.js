@@ -5,7 +5,6 @@ import { StateListenerRegistry } from '../../../react/features/base/redux';
 
 const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)
 
-
 const yRotationToVector = degrees => {
     const radians = degrees * (Math.PI / 180);
 
@@ -104,7 +103,7 @@ class NodesManager {
         delete this.pannerNodes[id]
     }
 
-    updatePannerNode(id, listenerPose, speakerPose) {
+    updatePannerNodePose(id, listenerPose, speakerPose) {
         console.log('update panner node', id)
         const panner = this.pannerNodes[id]
 
@@ -127,6 +126,20 @@ class NodesManager {
 
         node.setPosition(...positionRC)
         node.setOrientation(...orientationRC)
+    }
+
+    updateNodeEffect(id, effect) {
+        switch (effect) {
+        case 'normal':
+            this.pannerNodes[id].refDistance = 1
+            break;
+        case 'stage':
+            this.pannerNodes[id].refDistance = 1000
+            break;
+        default:
+            console.log(`Unrecognized effect: ${effect}`)
+            break;
+        }
     }
 }
 
@@ -153,7 +166,7 @@ function listenerFactory(remoteVideo) {
             return
         }
 
-        nodesManager.updatePannerNode(remoteVideo.id, selection[0].pose, selection[1].pose)
+        nodesManager.updatePannerNodePose(remoteVideo.id, selection[0].pose, selection[1].pose)
     }
 }
 

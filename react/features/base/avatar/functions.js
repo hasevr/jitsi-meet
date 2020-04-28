@@ -44,6 +44,7 @@ export function getInitials(s: ?string) {
     // We don't want to use the domain part of an email address, if it is one
     const initialsBasis = _.split(s, '@')[0];
     const words = _.words(initialsBasis);
+
     let initials = '';
 
     for (const w of words) {

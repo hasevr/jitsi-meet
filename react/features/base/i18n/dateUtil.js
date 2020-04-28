@@ -78,6 +78,7 @@ export function getLocalizedDurationFormatter(duration: number) {
  */
 function _getSupportedLocale() {
     const i18nLocale = i18next.language;
+
     let supportedLocale;
 
     if (i18nLocale) {

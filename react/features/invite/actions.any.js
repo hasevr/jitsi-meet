@@ -79,6 +79,7 @@ export function invite(
         }
 
         let allInvitePromises = [];
+
         let invitesLeftToSend = [ ...invitees ];
 
         const {

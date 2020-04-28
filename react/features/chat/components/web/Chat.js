@@ -169,6 +169,7 @@ class Chat extends AbstractChat<Props> {
                         ? <DisplayNameForm /> : this._renderChat() }
                 </>
             );
+
         let className = '';
 
         if (_isOpen) {

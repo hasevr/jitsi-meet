@@ -85,6 +85,7 @@ export function appNavigate(uri: ?string) {
         protocol !== 'http:' && protocol !== 'https:' && (protocol = 'https:');
 
         const baseURL = `${protocol}//${host}${contextRoot || '/'}`;
+
         let url = `${baseURL}config.js`;
 
         // XXX In order to support multiple shards, tell the room to the deployment.
@@ -166,6 +167,7 @@ export function redirectWithStoredParams(pathname: string) {
 export function redirectToStaticPage(pathname: string) {
     return () => {
         const windowLocation = window.location;
+
         let newPathname = pathname;
 
         if (!newPathname.startsWith('/')) {

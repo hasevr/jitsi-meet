@@ -76,6 +76,7 @@ export default class AbstractVideoTrack<P: Props> extends Component<P> {
      */
     render() {
         const videoTrack = _falsy2null(this.props.videoTrack);
+
         let render;
 
         if (this.props.waitForVideoStarted && videoTrack) {

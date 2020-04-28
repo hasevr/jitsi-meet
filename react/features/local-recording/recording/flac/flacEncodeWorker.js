@@ -95,6 +95,7 @@ const FLAC_COMPRESSION_LEVEL = 5;
  */
 function mergeUint8Arrays(arrays, totalLength) {
     const result = new Uint8Array(totalLength);
+
     let offset = 0;
     const len = arrays.length;
 
@@ -242,6 +243,7 @@ class Encoder {
         const bufferI32 = new Int32Array(bufferLength);
         const view = new DataView(bufferI32.buffer);
         const volume = 1;
+
         let index = 0;
 
         for (let i = 0; i < bufferLength; i++) {

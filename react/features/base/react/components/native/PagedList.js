@@ -144,6 +144,7 @@ class PagedList extends Component<Props, State> {
      */
     _maybeRefreshSelectedPage(isInteractive: boolean = true) {
         const selectedPage = this.props.pages[this.state.pageIndex];
+
         let component;
 
         if (selectedPage && (component = selectedPage.component)) {

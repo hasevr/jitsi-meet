@@ -73,6 +73,7 @@ MiddlewareRegistry.register(store => next => action => {
         // fact that there are 2 camera facing modes and merely toggles between
         // them to (hopefully) get the camera in the specified state.
         const localTrack = _getLocalTrack(store, MEDIA_TYPE.VIDEO);
+
         let jitsiTrack;
 
         if (localTrack
@@ -95,6 +96,7 @@ MiddlewareRegistry.register(store => next => action => {
 
     case TOGGLE_CAMERA_FACING_MODE: {
         const localTrack = _getLocalTrack(store, MEDIA_TYPE.VIDEO);
+
         let jitsiTrack;
 
         if (localTrack && (jitsiTrack = localTrack.jitsiTrack)) {

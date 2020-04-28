@@ -134,6 +134,7 @@ class JitsiModal extends PureComponent<Props> {
      */
     _onRequestClose() {
         const { _show, dispatch, onClose } = this.props;
+
         let shouldCloseModal = true;
 
         if (_show) {

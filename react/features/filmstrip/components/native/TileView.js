@@ -187,6 +187,7 @@ class TileView extends Component<Props, State> {
      */
     _getSortedParticipants() {
         const participants = [];
+
         let localParticipant;
 
         for (const participant of this.props._participants) {
@@ -215,6 +216,7 @@ class TileView extends Component<Props, State> {
         const participantCount = _participants.length;
         const heightToUse = height - (MARGIN * 2);
         const widthToUse = width - (MARGIN * 2);
+
         let tileWidth;
 
         // If there is going to be at least two rows, ensure that at least two

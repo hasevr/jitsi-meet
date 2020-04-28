@@ -308,6 +308,7 @@ class AudioRoutePickerDialog extends Component<Props, State> {
      */
     render() {
         const { devices } = this.state;
+
         let content;
 
         if (devices.length === 0) {

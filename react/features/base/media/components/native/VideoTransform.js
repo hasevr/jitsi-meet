@@ -378,6 +378,7 @@ class VideoTransform extends Component<Props, State> {
         if (layout) {
             const { scale } = this.state.transform;
             const { scale: newScaleUnlimited } = transform;
+
             let {
                 translateX: newTranslateX,
                 translateY: newTranslateY

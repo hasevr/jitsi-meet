@@ -9,6 +9,7 @@ export { RNNOISE_SAMPLE_LENGTH } from './RnnoiseProcessor';
 export type { RnnoiseProcessor };
 
 let rnnoiseWasmInterface;
+
 let initializePromise;
 
 /**

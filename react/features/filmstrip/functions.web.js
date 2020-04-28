@@ -42,6 +42,7 @@ export function shouldRemoteVideosBeVisible(state: Object) {
     // as it is assumed all participants, including fake, will be displayed
     // in the filmstrip.
     const participantCount = getParticipantCountWithFake(state);
+
     let pinnedParticipant;
 
     return Boolean(
